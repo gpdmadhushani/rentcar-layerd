@@ -4,6 +4,10 @@
  */
 package rentcar.layerd.view;
 import rentcar.layerd.view.LoginView;
+import rentcar.layerd.view.CategoryView;
+import rentcar.layerd.view.CarView;
+import rentcar.layerd.view.CustomerView;
+import rentcar.layerd.view.RentView;
 
 /**
  *
@@ -38,12 +42,10 @@ public class HomeView extends javax.swing.JFrame {
         rentbutton1 = new javax.swing.JButton();
         reoortbutton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1372, 700));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         headerPanel.setBackground(new java.awt.Color(0, 153, 102));
@@ -66,81 +68,110 @@ public class HomeView extends javax.swing.JFrame {
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(headerlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, -1));
+        getContentPane().add(headerPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 130));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1252, 129, -1, 584));
 
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setPreferredSize(new java.awt.Dimension(890, 650));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logoutbutton.setBackground(new java.awt.Color(0, 153, 102));
+        logoutbutton.setBackground(new java.awt.Color(255, 153, 0));
         logoutbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        logoutbutton.setText("Log Out");
+        logoutbutton.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconlogout.png")); // NOI18N
+        logoutbutton.setText("            Log Out");
         logoutbutton.setActionCommand("Manage Car");
-        logoutbutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        logoutbutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         logoutbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logoutbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutbuttonActionPerformed(evt);
             }
         });
-        jPanel2.add(logoutbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 190, 40));
+        jPanel2.add(logoutbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 250, 50));
 
-        categoerybutton.setBackground(new java.awt.Color(0, 153, 102));
+        categoerybutton.setBackground(new java.awt.Color(255, 153, 0));
         categoerybutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        categoerybutton.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconcate.png")); // NOI18N
         categoerybutton.setText("Manage Category");
-        categoerybutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        categoerybutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         categoerybutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        categoerybutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                categoerybuttonActionPerformed(evt);
+            }
+        });
         jPanel2.add(categoerybutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 250, 40));
 
-        carbutton.setBackground(new java.awt.Color(0, 153, 102));
+        carbutton.setBackground(new java.awt.Color(255, 153, 0));
         carbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        carbutton.setText("Manage Car");
-        carbutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        carbutton.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconcar.png")); // NOI18N
+        carbutton.setText("      Manage Car");
+        carbutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         carbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        carbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                carbuttonActionPerformed(evt);
+            }
+        });
         jPanel2.add(carbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 250, 40));
 
-        custbutton1.setBackground(new java.awt.Color(0, 153, 102));
+        custbutton1.setBackground(new java.awt.Color(255, 153, 0));
         custbutton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        custbutton1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconcustomer.png")); // NOI18N
         custbutton1.setText("Manage Customer");
         custbutton1.setActionCommand("Manage Car");
-        custbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        custbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         custbutton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        custbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                custbutton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(custbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 250, 40));
 
-        rentbutton1.setBackground(new java.awt.Color(0, 153, 102));
+        rentbutton1.setBackground(new java.awt.Color(255, 153, 0));
         rentbutton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rentbutton1.setText("Rent");
+        rentbutton1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconrent.png")); // NOI18N
+        rentbutton1.setText("                      Rent");
         rentbutton1.setActionCommand("Manage Car");
-        rentbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        rentbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         rentbutton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rentbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rentbutton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(rentbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 250, 40));
 
-        reoortbutton1.setBackground(new java.awt.Color(0, 153, 102));
+        reoortbutton1.setBackground(new java.awt.Color(255, 153, 0));
         reoortbutton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        reoortbutton1.setText("Reports");
+        reoortbutton1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconbill.png")); // NOI18N
+        reoortbutton1.setText("                 Reports");
         reoortbutton1.setActionCommand("Manage Car");
-        reoortbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 102)));
+        reoortbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         reoortbutton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        reoortbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                reoortbutton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(reoortbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 250, 40));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\home1.jpg")); // NOI18N
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 0, 910, 540));
+        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\car11.png")); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, -1, 460));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log17.jpg")); // NOI18N
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1250, 590));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 0, 1340, 590));
 
-        jLabel1.setText("jLabel1");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 0, -1, -1));
+        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\home5.jpg")); // NOI18N
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 0, 1340, 590));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 129, 1240, 590));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log17.jpg")); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 130, 110, 590));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 129, 1330, 590));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,6 +180,31 @@ public class HomeView extends javax.swing.JFrame {
         dispose();
         new LoginView().setVisible(true);
     }//GEN-LAST:event_logoutbuttonActionPerformed
+
+    private void categoerybuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoerybuttonActionPerformed
+        // TODO add your handling code here:
+        dispose();
+        new CategoryView().setVisible(true);
+    }//GEN-LAST:event_categoerybuttonActionPerformed
+
+    private void carbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_carbuttonActionPerformed
+        dispose();
+        new CarView().setVisible(true);
+    }//GEN-LAST:event_carbuttonActionPerformed
+
+    private void custbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custbutton1ActionPerformed
+        dispose();
+        new CustomerView().setVisible(true);
+    }//GEN-LAST:event_custbutton1ActionPerformed
+
+    private void rentbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentbutton1ActionPerformed
+        dispose();
+        new RentView().setVisible(true);
+    }//GEN-LAST:event_rentbutton1ActionPerformed
+
+    private void reoortbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reoortbutton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_reoortbutton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,7 +250,6 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton logoutbutton;

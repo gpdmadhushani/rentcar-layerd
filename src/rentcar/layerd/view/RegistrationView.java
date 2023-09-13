@@ -60,6 +60,7 @@ public class RegistrationView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1080, 654));
 
         headerPanel.setBackground(new java.awt.Color(0, 153, 102));
 
@@ -73,7 +74,7 @@ public class RegistrationView extends javax.swing.JFrame {
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(headerlabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(headerlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1078, Short.MAX_VALUE)
                 .addContainerGap())
         );
         headerPanelLayout.setVerticalGroup(
@@ -81,7 +82,7 @@ public class RegistrationView extends javax.swing.JFrame {
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(headerlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -90,166 +91,169 @@ public class RegistrationView extends javax.swing.JFrame {
 
         lastnamelabel.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         lastnamelabel.setText("Last Name");
-        jPanel1.add(lastnamelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, -1, -1));
+        jPanel1.add(lastnamelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 160, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel2.setText("Registration");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 200, 50));
 
-        firstnametxt.setBackground(new java.awt.Color(204, 204, 255));
+        firstnametxt.setBackground(new java.awt.Color(255, 204, 102));
         firstnametxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        firstnametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        firstnametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         firstnametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 firstnametxtActionPerformed(evt);
             }
         });
-        jPanel1.add(firstnametxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 328, -1));
+        jPanel1.add(firstnametxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 328, 40));
 
         firstnamelabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         firstnamelabel1.setText("First Name");
-        jPanel1.add(firstnamelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 111, -1));
+        jPanel1.add(firstnamelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 111, -1));
 
-        emailtxt.setBackground(new java.awt.Color(204, 204, 255));
+        emailtxt.setBackground(new java.awt.Color(255, 204, 102));
         emailtxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        emailtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        emailtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         emailtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailtxtActionPerformed(evt);
             }
         });
-        jPanel1.add(emailtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 285, -1));
+        jPanel1.add(emailtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 285, 40));
 
         genderlabel.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         genderlabel.setText("Gender");
-        jPanel1.add(genderlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 108, -1));
+        jPanel1.add(genderlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 108, -1));
 
-        lastnametxt1.setBackground(new java.awt.Color(204, 204, 255));
+        lastnametxt1.setBackground(new java.awt.Color(255, 204, 102));
         lastnametxt1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lastnametxt1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        lastnametxt1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         lastnametxt1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lastnametxt1ActionPerformed(evt);
             }
         });
-        jPanel1.add(lastnametxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 150, 388, -1));
+        jPanel1.add(lastnametxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, 380, 40));
 
         emaillabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         emaillabel1.setText("Email");
-        jPanel1.add(emaillabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 132, -1));
+        jPanel1.add(emaillabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 132, -1));
 
-        emailtxt1.setBackground(new java.awt.Color(204, 204, 255));
+        emailtxt1.setBackground(new java.awt.Color(255, 204, 102));
         emailtxt1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        emailtxt1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        emailtxt1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         emailtxt1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailtxt1ActionPerformed(evt);
             }
         });
-        jPanel1.add(emailtxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 328, -1));
+        jPanel1.add(emailtxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, 328, 40));
 
         passwordlabel.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         passwordlabel.setText("Password");
-        jPanel1.add(passwordlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 105, -1));
+        jPanel1.add(passwordlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 105, -1));
 
-        usernametxt.setBackground(new java.awt.Color(204, 204, 255));
+        usernametxt.setBackground(new java.awt.Color(255, 204, 102));
         usernametxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        usernametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        usernametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         usernametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernametxtActionPerformed(evt);
             }
         });
-        jPanel1.add(usernametxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 426, -1));
+        jPanel1.add(usernametxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 426, 40));
 
         usernamelabel.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         usernamelabel.setText("User Name");
-        jPanel1.add(usernamelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 132, -1));
+        jPanel1.add(usernamelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 132, -1));
 
-        PasswordField.setBackground(new java.awt.Color(204, 204, 255));
-        PasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        PasswordField.setBackground(new java.awt.Color(255, 204, 102));
+        PasswordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        PasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         PasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PasswordFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 294, 30));
+        jPanel1.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 410, 294, 40));
 
         mobilelabel1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         mobilelabel1.setText("Mobile");
-        jPanel1.add(mobilelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, 79, -1));
+        jPanel1.add(mobilelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 79, -1));
 
+        genderComboBox.setBackground(new java.awt.Color(255, 204, 102));
         genderComboBox.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         genderComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mr", "Mrs", "Miss" }));
-        genderComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        genderComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         genderComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 genderComboBoxActionPerformed(evt);
             }
         });
-        jPanel1.add(genderComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 152, 34));
+        jPanel1.add(genderComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 152, 40));
 
         confirmpasswordlabel.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         confirmpasswordlabel.setText("Confirm Password");
-        jPanel1.add(confirmpasswordlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
+        jPanel1.add(confirmpasswordlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 420, -1, -1));
 
-        conPasswordField.setBackground(new java.awt.Color(204, 204, 255));
-        conPasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        conPasswordField.setBackground(new java.awt.Color(255, 204, 102));
+        conPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        conPasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         conPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 conPasswordFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(conPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, 294, 30));
+        jPanel1.add(conPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 410, 294, 40));
 
         titlelabel.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         titlelabel.setText("Title");
-        jPanel1.add(titlelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 111, -1));
+        jPanel1.add(titlelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 111, -1));
 
-        genderComboBox1.setBackground(new java.awt.Color(204, 204, 255));
+        genderComboBox1.setBackground(new java.awt.Color(255, 204, 102));
         genderComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         genderComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
-        genderComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        jPanel1.add(genderComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 152, 34));
+        genderComboBox1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        jPanel1.add(genderComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 290, 152, 40));
 
-        btnback.setBackground(new java.awt.Color(0, 153, 102));
+        btnback.setBackground(new java.awt.Color(255, 153, 0));
         btnback.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        btnback.setText("<<Back");
-        btnback.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
+        btnback.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconback.png")); // NOI18N
+        btnback.setText("Back");
+        btnback.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         btnback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbackActionPerformed(evt);
             }
         });
-        jPanel1.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 480, 160, 40));
+        jPanel1.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 170, 50));
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 17, 149, 22));
 
-        jButton2.setBackground(new java.awt.Color(0, 153, 102));
+        jButton2.setBackground(new java.awt.Color(255, 153, 0));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton2.setText("Register");
-        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 102, 255)));
+        jButton2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsave.png")); // NOI18N
+        jButton2.setText("Save");
+        jButton2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 480, 160, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 480, 200, 50));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log17.jpg")); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1070, 560));
+        jLabel3.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log9.jpg")); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 580));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(headerPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(headerPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
