@@ -4,10 +4,16 @@
  */
 package rentcar.layerd.dao.custom;
 
+import rentcar.layerd.dao.CrudDao;
+import rentcar.layerd.dao.SuperDao;
+import rentcar.layerd.entity.UserEntity;
+
 /**
  *
  * @author TOSHIBA
  */
-public interface CustomerDao {
+public interface UserDao extends CrudDao<UserEntity,String> {
+
+    
     
 }

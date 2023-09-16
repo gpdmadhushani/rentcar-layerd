@@ -122,7 +122,7 @@ public class CategoryView extends javax.swing.JFrame {
                 btnbackActionPerformed(evt);
             }
         });
-        jPanel1.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 520, 142, 42));
+        jPanel1.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 520, 142, 50));
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(600, 600));
 

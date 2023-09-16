@@ -3,7 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package rentcar.layerd.view;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import rentcar.layerd.controller.UserController;
+import rentcar.layerd.dto.UserDto;
 import rentcar.layerd.view.RegistrationView;
 import rentcar.layerd.view.HomeView;
 
@@ -13,7 +18,7 @@ import rentcar.layerd.view.HomeView;
  */
 public class LoginView extends javax.swing.JFrame {
     
-    
+    private UserController userController;
     
 
     /**
@@ -21,7 +26,7 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
        
-        
+        userController=new UserController();
         initComponents();
         
         
@@ -43,14 +48,13 @@ public class LoginView extends javax.swing.JFrame {
         passwordlabel = new javax.swing.JLabel();
         usernametxt = new javax.swing.JTextField();
         usernamelabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        passwordtxt = new javax.swing.JPasswordField();
         regbutton = new javax.swing.JButton();
         signinbutton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(904, 620));
 
         headerPanel.setBackground(new java.awt.Color(0, 153, 102));
 
@@ -101,14 +105,14 @@ public class LoginView extends javax.swing.JFrame {
         usernamelabel1.setText("User Name");
         jPanel1.add(usernamelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 176, 30));
 
-        jPasswordField1.setBackground(new java.awt.Color(255, 204, 102));
-        jPasswordField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        passwordtxt.setBackground(new java.awt.Color(255, 204, 102));
+        passwordtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        passwordtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                passwordtxtActionPerformed(evt);
             }
         });
-        jPanel1.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 460, 44));
+        jPanel1.add(passwordtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 460, 44));
 
         regbutton.setBackground(new java.awt.Color(255, 153, 0));
         regbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -174,14 +178,15 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_regbuttonActionPerformed
 
     private void signinbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signinbutton1ActionPerformed
-dispose();
 
-        loadhomepage();
+signIn();
+
+        
     }//GEN-LAST:event_signinbutton1ActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void passwordtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordtxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_passwordtxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,9 +229,9 @@ dispose();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JLabel loginlabel;
     private javax.swing.JLabel passwordlabel;
+    private javax.swing.JPasswordField passwordtxt;
     private javax.swing.JButton regbutton;
     private javax.swing.JButton signinbutton1;
     private javax.swing.JLabel usernamelabel1;
@@ -237,7 +242,47 @@ dispose();
        new RegistrationView().setVisible(true);
     }
 
-    private void loadhomepage() {
-        new HomeView().setVisible(true);
+   
+
+    private void signIn() {
+        
+        try {
+         
+            String userName=usernametxt.getText();
+            String password=new String(passwordtxt.getPassword());
+            
+            
+            UserDto user=userController.getUser(userName);
+            
+           
+                
+            System.out.println(user.getPassword());
+               System.out.println(password);
+               
+            if(user.getUsername()!=null) {
+              
+              if(password.equals(user.getPassword())){
+             new HomeView().setVisible(true);
+              }else{
+                 JOptionPane.showMessageDialog(this,"Wrong Password"); 
+              }
+            }else {
+                 JOptionPane.showMessageDialog(this,"Wrong Password");
+            
+                
+            }
+        } catch (Exception ex) {
+            
+            Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
+            
+            JOptionPane.showMessageDialog(this,ex.getMessage());
+           
+           
+        }   
+         
+        
+        
+        
+        
     }
 }

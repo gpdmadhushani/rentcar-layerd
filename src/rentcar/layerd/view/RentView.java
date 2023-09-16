@@ -1406,6 +1406,7 @@ public class RentView extends javax.swing.JFrame {
         btnback.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconback.png")); // NOI18N
         btnback.setText("Back");
         btnback.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
+        btnback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnbackActionPerformed(evt);
