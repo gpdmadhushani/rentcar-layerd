@@ -3,19 +3,37 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package rentcar.layerd.view;
-import rentcar.layerd.view.HomeView;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import rentcar.layerd.controller.CategoryController;
+
+import rentcar.layerd.dto.CategoryDto;
+
+
 
 /**
  *
  * @author TOSHIBA
  */
 public class CategoryView extends javax.swing.JFrame {
+    
+    private CategoryController categoryController;
+    
 
     /**
      * Creates new form CategoryView
      */
     public CategoryView() {
+       categoryController=new CategoryController ();
+       
         initComponents();
+        
+        loadAllCategory();
     }
 
     /**
@@ -109,7 +127,7 @@ public class CategoryView extends javax.swing.JFrame {
                 savebtnActionPerformed(evt);
             }
         });
-        jPanel1.add(savebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 170, 150, 42));
+        jPanel1.add(savebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 170, 150, 50));
 
         btnback.setBackground(new java.awt.Color(255, 153, 0));
         btnback.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -128,7 +146,7 @@ public class CategoryView extends javax.swing.JFrame {
 
         categoryTable.setBackground(new java.awt.Color(204, 255, 204));
         categoryTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 204)));
-        categoryTable.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        categoryTable.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         categoryTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
@@ -1140,7 +1158,7 @@ public class CategoryView extends javax.swing.JFrame {
         categoryTable.setGridColor(new java.awt.Color(0, 102, 102));
         categoryTable.setPreferredSize(new java.awt.Dimension(9000, 9000));
         categoryTable.setRowHeight(30);
-        categoryTable.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        categoryTable.setSelectionBackground(new java.awt.Color(255, 204, 102));
         categoryTable.setShowGrid(false);
         categoryTable.setShowVerticalLines(true);
         categoryTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1150,7 +1168,7 @@ public class CategoryView extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(categoryTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 228, 949, 346));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 949, 280));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel1.setText("Manage Category");
@@ -1167,7 +1185,7 @@ public class CategoryView extends javax.swing.JFrame {
                 updatebtnActionPerformed(evt);
             }
         });
-        jPanel1.add(updatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, 170, 42));
+        jPanel1.add(updatebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 170, 170, 50));
 
         deletebtn.setBackground(new java.awt.Color(255, 153, 0));
         deletebtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1180,7 +1198,7 @@ public class CategoryView extends javax.swing.JFrame {
                 deletebtnActionPerformed(evt);
             }
         });
-        jPanel1.add(deletebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 170, 150, 42));
+        jPanel1.add(deletebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 170, 150, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log9.jpg")); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 580));
@@ -1223,19 +1241,23 @@ public class CategoryView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnbackActionPerformed
 
     private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
-        // TODO add your handling code here:
+        try {
+            addcategory();
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_savebtnActionPerformed
 
     private void categoryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryTableMouseClicked
-       
+searchcategory();       
     }//GEN-LAST:event_categoryTableMouseClicked
 
     private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebtnActionPerformed
-        // TODO add your handling code here:
+        updatecategory();
     }//GEN-LAST:event_updatebtnActionPerformed
 
     private void deletebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebtnActionPerformed
-        // TODO add your handling code here:
+        deletecategory();
     }//GEN-LAST:event_deletebtnActionPerformed
 
     /**
@@ -1290,4 +1312,104 @@ public class CategoryView extends javax.swing.JFrame {
     private javax.swing.JButton savebtn;
     private javax.swing.JButton updatebtn;
     // End of variables declaration//GEN-END:variables
-}
+
+    private void addcategory() throws Exception {
+        
+         CategoryDto categoryDto=new CategoryDto(cateidtext.getText(),  nametxt.getText());
+   
+    String result=categoryController.addCategory(categoryDto);
+    JOptionPane.showMessageDialog(this, result);
+    clear();
+    loadAllCategory();
+    }
+
+    private void clear() {
+        cateidtext.setText("");
+        nametxt.setText("");
+    }
+
+    private void updatecategory() {
+        try {
+            CategoryDto category=new CategoryDto(cateidtext.getText(),
+                   
+                    nametxt.getText());
+           String resp= categoryController.updateCategory(category);
+           
+            JOptionPane.showMessageDialog(this, resp);
+             loadAllCategory();
+            
+            clear();
+           
+           
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void loadAllCategory() {
+        
+          categoryTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 24));
+          categoryTable.getTableHeader().setBackground(Color.ORANGE);
+          
+       try {
+            String[] Columns={"Id","Name"};
+            DefaultTableModel dtm=new DefaultTableModel(Columns,0){
+                
+                public boolean isCellEditable(int row,int column){
+                    return false;
+                }
+                
+            };
+            
+            categoryTable.setModel(dtm);
+            
+            ArrayList<CategoryDto> categorys=categoryController.getAllCategory();
+            
+            for(CategoryDto category :categorys){
+                Object[] rowData={category.getCategoryID(),category.getName()};
+                dtm.addRow(rowData);
+            }  } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+    }
+
+    private void deletecategory() {
+        try {
+            String catId=cateidtext.getText();
+            String resp= categoryController.deleteCategory(catId);
+            
+            JOptionPane.showMessageDialog(this, resp);
+            clear();
+            loadAllCategory();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void searchcategory() {
+        try {
+            String catId=categoryTable.getValueAt(categoryTable.getSelectedRow(), 0).toString();
+            CategoryDto categoryDto=categoryController.getCategory(catId);
+            
+            if(categoryDto!=null){
+                
+               cateidtext.setText(categoryDto.getCategoryID());
+    
+    nametxt.setText(categoryDto.getName());
+      
+                }else{
+                
+                JOptionPane.showMessageDialog(this,"Category Not Found");
+                
+                
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    
+    }
+    }
+

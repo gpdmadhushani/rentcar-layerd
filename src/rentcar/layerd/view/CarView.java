@@ -15,6 +15,7 @@ public class CarView extends javax.swing.JFrame {
      */
     public CarView() {
         initComponents();
+        
     }
 
     /**
@@ -1415,4 +1416,6 @@ public class CarView extends javax.swing.JFrame {
     private javax.swing.JTextField vehinotext;
     private javax.swing.JComboBox<String> yearpotion;
     // End of variables declaration//GEN-END:variables
+
+    
 }

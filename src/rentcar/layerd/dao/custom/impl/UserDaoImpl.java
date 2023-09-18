@@ -5,6 +5,7 @@
 package rentcar.layerd.dao.custom.impl;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import rentcar.layerd.dao.CrudUtil;
 import rentcar.layerd.dao.custom.UserDao;
 import rentcar.layerd.entity.CustomerEntity;
@@ -47,6 +48,21 @@ public class UserDaoImpl implements UserDao {
         }
         
         return new UserEntity();
+    }
+
+    @Override
+    public boolean update(UserEntity t) throws Exception {
+       return false;
+    }
+
+    @Override
+    public boolean delete(String id) throws Exception {
+        return false;
+    }
+
+    @Override
+    public ArrayList<UserEntity> getAll() throws Exception {
+        return null;
     }
 
     

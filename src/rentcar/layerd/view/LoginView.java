@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package rentcar.layerd.view;
+import java.security.MessageDigest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -133,6 +134,7 @@ public class LoginView extends javax.swing.JFrame {
         signinbutton1.setText("Sign In");
         signinbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         signinbutton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        signinbutton1.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         signinbutton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signinbutton1ActionPerformed(evt);
@@ -249,25 +251,25 @@ signIn();
         try {
          
             String userName=usernametxt.getText();
-            String password=new String(passwordtxt.getPassword());
             
+            String password=md5(passwordtxt.getPassword());
             
             UserDto user=userController.getUser(userName);
             
            
                 
-            System.out.println(user.getPassword());
-               System.out.println(password);
+           
                
             if(user.getUsername()!=null) {
               
               if(password.equals(user.getPassword())){
+                  dispose();
              new HomeView().setVisible(true);
               }else{
                  JOptionPane.showMessageDialog(this,"Wrong Password"); 
               }
             }else {
-                 JOptionPane.showMessageDialog(this,"Wrong Password");
+                 JOptionPane.showMessageDialog(this,"Wrong User Name");
             
                 
             }
@@ -285,4 +287,22 @@ signIn();
         
         
     }
+    
+     private String md5(char [] c){
+        try{
+            
+        
+        MessageDigest digs=MessageDigest.getInstance("MD5");
+        digs.update(new String (c).getBytes("UTF8"));
+       String str= new String(digs.digest());
+        
+        return str;
+        }catch(Exception ex){
+           return ""; 
+        }   
+        
+    }
+    
+    
+    
 }

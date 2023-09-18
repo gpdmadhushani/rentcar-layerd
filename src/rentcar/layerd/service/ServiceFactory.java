@@ -4,6 +4,7 @@
  */
 package rentcar.layerd.service;
 
+import rentcar.layerd.service.custom.impl.CategoryServiceImpl;
 import rentcar.layerd.service.custom.impl.UserServiceImpl;
 
 /**
@@ -27,6 +28,10 @@ public class ServiceFactory {
             case USER:
                 return new UserServiceImpl();
                 
+             case CATEGORY:
+                return new CategoryServiceImpl();
+               
+                 
             default:
                 return null;
         
@@ -34,6 +39,6 @@ public class ServiceFactory {
         
     }
     public enum ServiceType{
-        USER
+        USER,CATEGORY
     }
 }

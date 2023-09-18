@@ -4,6 +4,7 @@
  */
 package rentcar.layerd.dao;
 
+import rentcar.layerd.dao.custom.impl.CategoryDaoImpl;
 import rentcar.layerd.dao.custom.impl.UserDaoImpl;
 import rentcar.layerd.service.ServiceFactory;
 
@@ -29,7 +30,7 @@ public class DaoFactory {
     
     
  public enum DaoTypes{
-        USER
+        USER,CATEGORY
     } 
  
  
@@ -38,6 +39,8 @@ public class DaoFactory {
             case USER:
                 return new UserDaoImpl();
                 
+                case CATEGORY:
+                return new CategoryDaoImpl();
             default:
                 return null;
         
