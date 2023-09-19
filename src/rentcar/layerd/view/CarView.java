@@ -3,6 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package rentcar.layerd.view;
+import java.awt.Color;
+import java.awt.Font;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import rentcar.layerd.controller.CarController;
+import rentcar.layerd.controller.CategoryController;
+import rentcar.layerd.dao.CrudUtil;
+import rentcar.layerd.dto.CarDto;
+import rentcar.layerd.dto.CategoryDto;
+import rentcar.layerd.entity.CarEntity;
+import rentcar.layerd.entity.CategoryEntity;
 import rentcar.layerd.view.HomeView;
 /**
  *
@@ -10,11 +26,18 @@ import rentcar.layerd.view.HomeView;
  */
 public class CarView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CustomerView
-     */
+     private CarController carController;
+     private CategoryController categoryController; 
     public CarView() {
+       carController=new CarController();
+       categoryController=new CategoryController();
         initComponents();
+        loadAllcars();
+         try {
+             loadCategory();
+         } catch (SQLException ex) {
+             Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
+         }
         
     }
 
@@ -35,7 +58,7 @@ public class CarView extends javax.swing.JFrame {
         savebtn = new javax.swing.JButton();
         btnback = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        categoryTable = new javax.swing.JTable();
+        carTable = new javax.swing.JTable();
         modellabel = new javax.swing.JLabel();
         transmissionoption = new javax.swing.JComboBox<>();
         modeloption = new javax.swing.JComboBox<>();
@@ -46,9 +69,9 @@ public class CarView extends javax.swing.JFrame {
         translabel = new javax.swing.JLabel();
         brandoption = new javax.swing.JComboBox<>();
         fualtypelabel = new javax.swing.JLabel();
-        yearpotion = new javax.swing.JComboBox<>();
+        yearoption = new javax.swing.JComboBox<>();
         fualtypelabel1 = new javax.swing.JLabel();
-        fualpotion = new javax.swing.JComboBox<>();
+        fualoption = new javax.swing.JComboBox<>();
         vehinolabel1 = new javax.swing.JLabel();
         vehinotext = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -122,10 +145,10 @@ public class CarView extends javax.swing.JFrame {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        categoryTable.setBackground(new java.awt.Color(204, 255, 204));
-        categoryTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 204)));
-        categoryTable.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        categoryTable.setModel(new javax.swing.table.DefaultTableModel(
+        carTable.setBackground(new java.awt.Color(204, 255, 204));
+        carTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 204)));
+        carTable.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        carTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -1132,19 +1155,19 @@ public class CarView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
             }
         ));
-        categoryTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        categoryTable.setGridColor(new java.awt.Color(0, 102, 102));
-        categoryTable.setPreferredSize(new java.awt.Dimension(9000, 9000));
-        categoryTable.setRowHeight(30);
-        categoryTable.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        categoryTable.setShowGrid(false);
-        categoryTable.setShowVerticalLines(true);
-        categoryTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        carTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        carTable.setGridColor(new java.awt.Color(0, 102, 102));
+        carTable.setPreferredSize(new java.awt.Dimension(9000, 9000));
+        carTable.setRowHeight(30);
+        carTable.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        carTable.setShowGrid(false);
+        carTable.setShowVerticalLines(true);
+        carTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                categoryTableMouseClicked(evt);
+                carTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(categoryTable);
+        jScrollPane1.setViewportView(carTable);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 1150, 170));
 
@@ -1160,8 +1183,13 @@ public class CarView extends javax.swing.JFrame {
 
         modeloption.setBackground(new java.awt.Color(255, 204, 102));
         modeloption.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        modeloption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        modeloption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corolla", "Vitz", "Axio", "Land Cruiser", "Aqua", "Alto", "Maruti", "Swift", "Wagon R", "Celerio", "Spacia", "Sunny", "March", "Bluebird", "AD Wagon", "Dutsun", "Lancer", "L200", "Monterio", "4DR", "C200", "E200", "C180", "E300", "Fit", "Vezel", "Civic", "CRV", "City", "Panda", "MX7", "Trend", "Rexton", "Accent", "Tuscon", "Eon", "Sonata", "X5", "X1", "520d", "318i", "Nano", "Indica", "Xenon", "Indigo", "Familia", "Demio", "RX", "Rio", "Sorento", "Sportage", "800", "Alto", "Zen", "Mira", "Terios", "Boon" }));
         modeloption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        modeloption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modeloptionActionPerformed(evt);
+            }
+        });
         jPanel1.add(modeloption, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 120, 366, 36));
 
         categorylabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1170,7 +1198,6 @@ public class CarView extends javax.swing.JFrame {
 
         categoryoption.setBackground(new java.awt.Color(255, 204, 102));
         categoryoption.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        categoryoption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         categoryoption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         jPanel1.add(categoryoption, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 60, 366, 36));
 
@@ -1195,31 +1222,41 @@ public class CarView extends javax.swing.JFrame {
         brandoption.setBackground(new java.awt.Color(255, 204, 102));
         brandoption.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         brandoption.setMaximumRowCount(54);
-        brandoption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toyota", "Suzuki", "Nissan", "Mitsubishi", "Honda", "Micro ", "Mercedes Benz", "Hyundai", "Tata", "BMW", "Mazda", "Kia", "Maruti Suzuki", "Daihatsu", "Land Rover", "Audi", "Peugeot", "Perodua", "Ford", "Mahindra", "Renault", "Chery", "Mini", "Isuzu", "Volkswagen", "DFSK", "Zotye", "Austin", "Chevrolet", "Morris", "Dastun", "Sabaru", "Fial", "MG", "Daewoo", "Ssang Yong", "Lexus", "Proton", "Jaguar", "Jeep", "Maruti", "Volvo", "Porsche", "Citroen", "Geely", "Skoda", "Alfa Romeo", "Hummer", "Tesla", "Changan", "Maserati", "Opel", "Other Brand", " ", " " }));
+        brandoption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toyota", "Suzuki", "Nissan", "Mitsubishi", "Honda", "Micro ", "Mercedes Benz", "Hyundai", "Tata", "BMW", "Mazda", "Kia", "Maruti Suzuki", "Daihatsu", " ", " ", " " }));
         brandoption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         brandoption.setPreferredSize(new java.awt.Dimension(170, 29));
+        brandoption.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                brandoptionMouseExited(evt);
+            }
+        });
+        brandoption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                brandoptionActionPerformed(evt);
+            }
+        });
         jPanel1.add(brandoption, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 270, 36));
 
         fualtypelabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         fualtypelabel.setText("Year");
         jPanel1.add(fualtypelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, 104, 30));
 
-        yearpotion.setBackground(new java.awt.Color(255, 204, 102));
-        yearpotion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        yearpotion.setMaximumRowCount(50);
-        yearpotion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960" }));
-        yearpotion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
-        jPanel1.add(yearpotion, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 250, 146, 36));
+        yearoption.setBackground(new java.awt.Color(255, 204, 102));
+        yearoption.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        yearoption.setMaximumRowCount(50);
+        yearoption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2023", "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985", "1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972", "1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960" }));
+        yearoption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        jPanel1.add(yearoption, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 250, 146, 36));
 
         fualtypelabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         fualtypelabel1.setText("Fuel Type");
         jPanel1.add(fualtypelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 190, 95, 30));
 
-        fualpotion.setBackground(new java.awt.Color(255, 204, 102));
-        fualpotion.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        fualpotion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Petrol", "Diesel", "Hybrid", "Electronic", "Other fuel type" }));
-        fualpotion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
-        jPanel1.add(fualpotion, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 190, 366, 36));
+        fualoption.setBackground(new java.awt.Color(255, 204, 102));
+        fualoption.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        fualoption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Petrol", "Diesel", "Hybrid", "Electronic", "Other fuel type" }));
+        fualoption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        jPanel1.add(fualoption, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 190, 366, 36));
 
         vehinolabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         vehinolabel1.setText("Vehicle No");
@@ -1320,11 +1357,15 @@ public class CarView extends javax.swing.JFrame {
     }//GEN-LAST:event_pricetextActionPerformed
 
     private void updatebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebtnActionPerformed
-        // TODO add your handling code here:
+        updatecar();
     }//GEN-LAST:event_updatebtnActionPerformed
 
     private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
-        // TODO add your handling code here:
+         try {
+             savecar();
+         } catch (Exception ex) {
+             Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
+         }
     }//GEN-LAST:event_savebtnActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
@@ -1332,9 +1373,9 @@ public class CarView extends javax.swing.JFrame {
         new HomeView().setVisible(true);
     }//GEN-LAST:event_btnbackActionPerformed
 
-    private void categoryTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_categoryTableMouseClicked
-
-    }//GEN-LAST:event_categoryTableMouseClicked
+    private void carTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_carTableMouseClicked
+searchcar();
+    }//GEN-LAST:event_carTableMouseClicked
 
     private void idtextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idtextActionPerformed
         // TODO add your handling code here:
@@ -1345,8 +1386,20 @@ public class CarView extends javax.swing.JFrame {
     }//GEN-LAST:event_vehinotextActionPerformed
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
-        // TODO add your handling code here:
+        deletecar();
     }//GEN-LAST:event_btndeleteActionPerformed
+
+    private void brandoptionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_brandoptionMouseExited
+       
+    }//GEN-LAST:event_brandoptionMouseExited
+
+    private void modeloptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modeloptionActionPerformed
+       // loadModel();
+    }//GEN-LAST:event_modeloptionActionPerformed
+
+    private void brandoptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_brandoptionActionPerformed
+     // TODO add your handling code here:
+    }//GEN-LAST:event_brandoptionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1389,10 +1442,10 @@ public class CarView extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> brandoption;
     private javax.swing.JButton btnback;
     private javax.swing.JButton btndelete;
-    private javax.swing.JTable categoryTable;
+    private javax.swing.JTable carTable;
     private javax.swing.JLabel categorylabel;
     private javax.swing.JComboBox<String> categoryoption;
-    private javax.swing.JComboBox<String> fualpotion;
+    private javax.swing.JComboBox<String> fualoption;
     private javax.swing.JLabel fualtypelabel;
     private javax.swing.JLabel fualtypelabel1;
     private javax.swing.JPanel headerPanel1;
@@ -1414,8 +1467,147 @@ public class CarView extends javax.swing.JFrame {
     private javax.swing.JLabel vehinolabel;
     private javax.swing.JLabel vehinolabel1;
     private javax.swing.JTextField vehinotext;
-    private javax.swing.JComboBox<String> yearpotion;
+    private javax.swing.JComboBox<String> yearoption;
     // End of variables declaration//GEN-END:variables
 
+    private void savecar() throws Exception {
+         CarDto carDto=new CarDto(idtext.getText(),  categoryoption.getSelectedItem().toString(),brandoption.getSelectedItem().toString()
+         ,modeloption.getSelectedItem().toString(),transmissionoption.getSelectedItem().toString(),fualoption.getSelectedItem().toString()
+         ,vehinotext.getText(),Integer.parseInt(yearoption.getSelectedItem().toString()),Double.parseDouble(pricetext.getText()));
+   
+    String result=carController.addCar(carDto);
+    JOptionPane.showMessageDialog(this, result);
+    clear();
+    loadAllcars();
+    }
+
+    private void updatecar() {
+       try {
+            CarDto car=new CarDto(idtext.getText(),
+                   
+                     categoryoption.getSelectedItem().toString(),brandoption.getSelectedItem().toString()
+         ,modeloption.getSelectedItem().toString(),transmissionoption.getSelectedItem().toString(),fualoption.getSelectedItem().toString()
+         ,vehinotext.getText(),Integer.parseInt(yearoption.getSelectedItem().toString()),Double.parseDouble(pricetext.getText()));
+           String resp= carController.updateCar(car);
+           
+            JOptionPane.showMessageDialog(this, resp);
+             loadAllcars();
+            
+            clear();
+           
+           
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
+    private void deletecar() {
+         try {
+            String carId=idtext.getText();
+            String resp= carController.deleteCar(carId);
+            
+            JOptionPane.showMessageDialog(this, resp);
+            clear();
+            loadAllcars();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void searchcar() {
+      try {
+            String carId=carTable.getValueAt(carTable.getSelectedRow(), 0).toString();
+            CarDto carDto=carController.getCar(carId);
+            
+            if(carDto!=null){
+                
+               idtext.setText(carDto.getId());
+    categoryoption.setSelectedItem(carDto.getCategory());
+    brandoption.setSelectedItem(carDto.getBrand());
+    modeloption.setSelectedItem(carDto.getModel());
+    transmissionoption.setSelectedItem(carDto.getTransmission());
+    fualoption.setSelectedItem(carDto.getFualType());
+    vehinotext.setText(carDto.getVehicleNo());
+    yearoption.setSelectedItem(carDto.getYear());
+    pricetext.setText(Double.toString(carDto.getPerDayPrice()));
+   
+      
+                }else{
+                
+                JOptionPane.showMessageDialog(this,"Car Not Found");
+                
+                
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     
+    
+    }
+
+    private void loadAllcars() {
+      
+       carTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
+          carTable.getTableHeader().setBackground(Color.ORANGE);
+          
+       try {
+            String[] Columns={"Id","Category","Brand","Model","Transmission","Fual Type","Vehicle No","Year","Per Day Price"};
+            DefaultTableModel dtm=new DefaultTableModel(Columns,0){
+                
+                public boolean isCellEditable(int row,int column){
+                    return false;
+                }
+                
+            };
+            
+            carTable.setModel(dtm);
+            
+            ArrayList<CarDto> cars=carController.getAllCar();
+            
+            for(CarDto car :cars){
+                Object[] rowData={car.getId(),car.getCategory(),car.getBrand(),car.getModel(),car.getTransmission(),
+                car.getFualType(),car.getVehicleNo(),car.getYear(),car.getPerDayPrice()};
+                dtm.addRow(rowData);
+            }  } catch (Exception ex) {
+            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+        
+    }
+
+    private void clear() {
+      idtext.setText("");
+    categoryoption.setSelectedIndex(0);
+    brandoption.setSelectedIndex(0);
+    modeloption.setSelectedIndex(0);
+    transmissionoption.setSelectedIndex(0);
+    fualoption.setSelectedIndex(0);
+    vehinotext.setText("");
+    yearoption.setSelectedIndex(0);
+    pricetext.setText("");  
+    }
+
+    private void loadCategory() throws SQLException {
+        
+         ArrayList<CategoryEntity> categoryEntity=new ArrayList<>();
+         
+        ResultSet rst=CrudUtil.executeQuery("Select * from category");
+         
+        while(rst.next()){
+            CategoryEntity categoryEntitys=new CategoryEntity(rst.getString(1),
+           
+           rst.getString(2));
+            
+             //categoryoption.setSelectedItem(rst.getString(2));
+           categoryoption.addItem(rst.getString(2));
+        categoryEntity.add(categoryEntitys);
+        
+        
+    }
+
+    }
 }
+
+    
