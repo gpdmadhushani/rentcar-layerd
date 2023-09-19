@@ -1183,7 +1183,7 @@ public class CarView extends javax.swing.JFrame {
 
         modeloption.setBackground(new java.awt.Color(255, 204, 102));
         modeloption.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        modeloption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corolla", "Vitz", "Axio", "Land Cruiser", "Aqua", "Alto", "Maruti", "Swift", "Wagon R", "Celerio", "Spacia", "Sunny", "March", "Bluebird", "AD Wagon", "Dutsun", "Lancer", "L200", "Monterio", "4DR", "C200", "E200", "C180", "E300", "Fit", "Vezel", "Civic", "CRV", "City", "Panda", "MX7", "Trend", "Rexton", "Accent", "Tuscon", "Eon", "Sonata", "X5", "X1", "520d", "318i", "Nano", "Indica", "Xenon", "Indigo", "Familia", "Demio", "RX", "Rio", "Sorento", "Sportage", "800", "Alto", "Zen", "Mira", "Terios", "Boon" }));
+        modeloption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Corolla", "Vitz", "Axio", "Land Cruiser", "Aqua", "Alto", "Maruti", "Swift", "Wagon R", "Celerio", "Spacia", "Sunny", "March", "Bluebird", "AD Wagon", "Dutsun", "Lancer", "L200", "Monterio", "4DR", "C200", "E200", "C180", "E300", "Fit", "Vezel", "Civic", "CRV", "City", "Panda", "MX7", "Trend", "Rexton", "Accent", "Tuscon", "Eon", "Sonata", "X5", "X1", "520d", "318i", "Nano", "Indica", "Xenon", "Indigo", "Familia", "Demio", "RX", "Rio", "Sorento", "Sportage", "800", "Alto", "Zen", "Mira", "Terios", "Boon", "Other" }));
         modeloption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         modeloption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1222,7 +1222,7 @@ public class CarView extends javax.swing.JFrame {
         brandoption.setBackground(new java.awt.Color(255, 204, 102));
         brandoption.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         brandoption.setMaximumRowCount(54);
-        brandoption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toyota", "Suzuki", "Nissan", "Mitsubishi", "Honda", "Micro ", "Mercedes Benz", "Hyundai", "Tata", "BMW", "Mazda", "Kia", "Maruti Suzuki", "Daihatsu", " ", " ", " " }));
+        brandoption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Toyota", "Suzuki", "Nissan", "Mitsubishi", "Honda", "Micro ", "Mercedes Benz", "Hyundai", "Tata", "BMW", "Mazda", "Kia", "Maruti Suzuki", "Daihatsu", "Other", " ", " " }));
         brandoption.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         brandoption.setPreferredSize(new java.awt.Dimension(170, 29));
         brandoption.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1497,7 +1497,7 @@ searchcar();
            
            
         } catch (Exception ex) {
-            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
         } 
     }
 
@@ -1511,7 +1511,7 @@ searchcar();
             loadAllcars();
             
         } catch (Exception ex) {
-            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
@@ -1541,7 +1541,7 @@ searchcar();
                 
             }
         } catch (Exception ex) {
-            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     
@@ -1572,7 +1572,7 @@ searchcar();
                 car.getFualType(),car.getVehicleNo(),car.getYear(),car.getPerDayPrice()};
                 dtm.addRow(rowData);
             }  } catch (Exception ex) {
-            Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
         }    
         
     }

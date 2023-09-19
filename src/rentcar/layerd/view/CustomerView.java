@@ -3,6 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package rentcar.layerd.view;
+import java.awt.Color;
+import java.awt.Font;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import rentcar.layerd.controller.CustomerController;
+import rentcar.layerd.dto.CarDto;
+import rentcar.layerd.dto.CustomerDto;
 import rentcar.layerd.view.HomeView;
 
 /**
@@ -11,11 +21,12 @@ import rentcar.layerd.view.HomeView;
  */
 public class CustomerView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form CustomerView
-     */
+   private CustomerController customerController;
     public CustomerView() {
+        customerController=new CustomerController();
         initComponents();
+        loadAllcustomers();
+        
     }
 
     /**
@@ -47,7 +58,7 @@ public class CustomerView extends javax.swing.JFrame {
         deleteCustButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        rentTable = new javax.swing.JTable();
+        customerTable = new javax.swing.JTable();
         deleteCustButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -214,7 +225,7 @@ public class CustomerView extends javax.swing.JFrame {
                 addCustButtonActionPerformed(evt);
             }
         });
-        homepanel.add(addCustButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 340, 150, -1));
+        homepanel.add(addCustButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 320, 150, -1));
 
         updateCustButton.setBackground(new java.awt.Color(255, 153, 0));
         updateCustButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -227,7 +238,7 @@ public class CustomerView extends javax.swing.JFrame {
                 updateCustButtonActionPerformed(evt);
             }
         });
-        homepanel.add(updateCustButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 340, 160, 50));
+        homepanel.add(updateCustButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 320, 160, 50));
 
         deleteCustButton.setBackground(new java.awt.Color(255, 153, 0));
         deleteCustButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -248,8 +259,9 @@ public class CustomerView extends javax.swing.JFrame {
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        rentTable.setBackground(new java.awt.Color(204, 255, 204));
-        rentTable.setModel(new javax.swing.table.DefaultTableModel(
+        customerTable.setBackground(new java.awt.Color(204, 255, 204));
+        customerTable.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        customerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null},
@@ -1256,18 +1268,18 @@ public class CustomerView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
             }
         ));
-        rentTable.setPreferredSize(new java.awt.Dimension(9000, 9000));
-        rentTable.setRowHeight(30);
-        rentTable.setShowGrid(false);
-        rentTable.setShowVerticalLines(true);
-        rentTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        customerTable.setPreferredSize(new java.awt.Dimension(9000, 9000));
+        customerTable.setRowHeight(30);
+        customerTable.setShowGrid(false);
+        customerTable.setShowVerticalLines(true);
+        customerTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rentTableMouseClicked(evt);
+                customerTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(rentTable);
+        jScrollPane1.setViewportView(customerTable);
 
-        homepanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 800, 180));
+        homepanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 1060, 180));
 
         deleteCustButton1.setBackground(new java.awt.Color(255, 153, 0));
         deleteCustButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1280,7 +1292,7 @@ public class CustomerView extends javax.swing.JFrame {
                 deleteCustButton1ActionPerformed(evt);
             }
         });
-        homepanel.add(deleteCustButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 340, 150, 50));
+        homepanel.add(deleteCustButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 320, 150, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log9.jpg")); // NOI18N
         homepanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1410, 650));
@@ -1347,11 +1359,15 @@ new HomeView().setVisible(true);
     }//GEN-LAST:event_deleteCustButtonActionPerformed
 
     private void updateCustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCustButtonActionPerformed
-
+updatecustomer();
     }//GEN-LAST:event_updateCustButtonActionPerformed
 
     private void addCustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustButtonActionPerformed
-
+       try {
+           addcustomer();
+       } catch (Exception ex) {
+           Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }//GEN-LAST:event_addCustButtonActionPerformed
 
     private void genderoptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderoptionActionPerformed
@@ -1426,12 +1442,12 @@ new HomeView().setVisible(true);
 
     }//GEN-LAST:event_custIdtextMouseClicked
 
-    private void rentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rentTableMouseClicked
-
-    }//GEN-LAST:event_rentTableMouseClicked
+    private void customerTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerTableMouseClicked
+searchcustomer();
+    }//GEN-LAST:event_customerTableMouseClicked
 
     private void deleteCustButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCustButton1ActionPerformed
-        // TODO add your handling code here:
+        deletecustomer();
     }//GEN-LAST:event_deleteCustButton1ActionPerformed
 
     /**
@@ -1483,6 +1499,7 @@ new HomeView().setVisible(true);
     private javax.swing.JLabel customerContacttxt;
     private javax.swing.JLabel customerIdLabel;
     private javax.swing.JLabel customerNameLabel;
+    private javax.swing.JTable customerTable;
     private javax.swing.JLabel customerTitleLabel;
     private javax.swing.JButton deleteCustButton;
     private javax.swing.JButton deleteCustButton1;
@@ -1494,7 +1511,117 @@ new HomeView().setVisible(true);
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable rentTable;
     private javax.swing.JButton updateCustButton;
     // End of variables declaration//GEN-END:variables
+
+    private void addcustomer() throws Exception {
+         CustomerDto customerDto=new CustomerDto(custIdtext.getText(),custNametext.getText(),comboxtitle.getSelectedItem().toString(),custnictext.getText(),genderoption.getSelectedItem().toString(),
+        custAddresstext.getText(),custcontacttext.getText() );
+   
+    String result=customerController.addCustomer(customerDto);
+    JOptionPane.showMessageDialog(this, result);
+    clear();
+    loadAllcustomers();
+    }
+
+    private void clear() {
+       custIdtext.setText("");
+       custNametext.setText("");
+       comboxtitle.setSelectedIndex(0);
+       custnictext.setText("");
+       genderoption.setSelectedIndex(0);
+        custAddresstext.setText("");
+        custcontacttext.setText("");
+    }
+
+    private void loadAllcustomers() {
+         customerTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
+          customerTable.getTableHeader().setBackground(Color.ORANGE);
+          
+       try {
+            String[] Columns={"Id","Title","Name","NIC","Gender","Address","Contact"};
+            DefaultTableModel dtm=new DefaultTableModel(Columns,0){
+                
+                public boolean isCellEditable(int row,int column){
+                    return false;
+                }
+                
+            };
+            
+            customerTable.setModel(dtm);
+            
+            ArrayList<CustomerDto> cus=customerController.getAllCustomer();
+            
+            for(CustomerDto cu :cus){
+                Object[] rowData={cu.getId(),cu.getTitle(),cu.getName(),cu.getNic(),cu.getGender(),
+                cu.getAddress(),cu.getContact()};
+                dtm.addRow(rowData);
+            }  } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }
+
+    private void updatecustomer() {
+        try {
+            CustomerDto cus=new CustomerDto(custIdtext.getText(),custNametext.getText(),comboxtitle.getSelectedItem().toString(),custnictext.getText(),genderoption.getSelectedItem().toString(),
+        custAddresstext.getText(),custcontacttext.getText());
+           String resp= customerController.updateCustomer(cus);
+           
+            JOptionPane.showMessageDialog(this, resp);
+             loadAllcustomers();
+            
+            clear();
+           
+           
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
+    private void deletecustomer() {
+        try {
+            String cusId=custIdtext.getText();
+            String resp= customerController.deleteCustomer(cusId);
+            
+            JOptionPane.showMessageDialog(this, resp);
+            clear();
+            loadAllcustomers();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    }
+
+    private void searchcustomer() {
+        try {
+            String cusId=customerTable.getValueAt(customerTable.getSelectedRow(), 0).toString();
+            CustomerDto customerDto=customerController.getCustomer(cusId);
+            
+            if(customerDto!=null){
+              
+             custIdtext.setText(customerDto.getId());
+       custNametext.setText(customerDto.getName());
+       comboxtitle.setSelectedItem(customerDto.getTitle());
+       custnictext.setText(customerDto.getNic());
+       genderoption.setSelectedItem(customerDto.getGender());
+        custAddresstext.setText(customerDto.getAddress());
+        custcontacttext.setText(customerDto.getContact());   
+                
+                
+                
+                
+      }else{
+                
+                JOptionPane.showMessageDialog(this,"Customer Not Found");
+                
+                
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+    
+    
+    }
 }
