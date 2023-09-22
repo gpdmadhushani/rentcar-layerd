@@ -8,7 +8,7 @@ import rentcar.layerd.view.CategoryView;
 import rentcar.layerd.view.CarView;
 import rentcar.layerd.view.CustomerView;
 import rentcar.layerd.view.RentView;
-
+import rentcar.layerd.view.ManageRentView;
 /**
  *
  * @author TOSHIBA
@@ -39,7 +39,7 @@ public class HomeView extends javax.swing.JFrame {
         categoerybutton = new javax.swing.JButton();
         carbutton = new javax.swing.JButton();
         custbutton1 = new javax.swing.JButton();
-        rentbutton1 = new javax.swing.JButton();
+        rentbutton = new javax.swing.JButton();
         reoortbutton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -134,19 +134,19 @@ public class HomeView extends javax.swing.JFrame {
         });
         jPanel2.add(custbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 250, 40));
 
-        rentbutton1.setBackground(new java.awt.Color(255, 153, 0));
-        rentbutton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        rentbutton1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconrent.png")); // NOI18N
-        rentbutton1.setText("                      Rent");
-        rentbutton1.setActionCommand("Manage Car");
-        rentbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        rentbutton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rentbutton1.addActionListener(new java.awt.event.ActionListener() {
+        rentbutton.setBackground(new java.awt.Color(255, 153, 0));
+        rentbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        rentbutton.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconrent.png")); // NOI18N
+        rentbutton.setText("                      Rent");
+        rentbutton.setActionCommand("Manage Car");
+        rentbutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
+        rentbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rentbutton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rentbutton1ActionPerformed(evt);
+                rentbuttonActionPerformed(evt);
             }
         });
-        jPanel2.add(rentbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 250, 40));
+        jPanel2.add(rentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 250, 40));
 
         reoortbutton1.setBackground(new java.awt.Color(255, 153, 0));
         reoortbutton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -197,10 +197,10 @@ public class HomeView extends javax.swing.JFrame {
         new CustomerView().setVisible(true);
     }//GEN-LAST:event_custbutton1ActionPerformed
 
-    private void rentbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentbutton1ActionPerformed
+    private void rentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rentbuttonActionPerformed
         dispose();
-        new RentView().setVisible(true);
-    }//GEN-LAST:event_rentbutton1ActionPerformed
+        new ManageRentView().setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_rentbuttonActionPerformed
 
     private void reoortbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reoortbutton1ActionPerformed
         // TODO add your handling code here:
@@ -253,7 +253,7 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton logoutbutton;
-    private javax.swing.JButton rentbutton1;
+    private javax.swing.JButton rentbutton;
     private javax.swing.JButton reoortbutton1;
     // End of variables declaration//GEN-END:variables
 }

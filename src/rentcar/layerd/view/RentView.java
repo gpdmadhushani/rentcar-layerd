@@ -7,23 +7,52 @@ package rentcar.layerd.view;
 import java.awt.Color;
 import static java.awt.Color.red;
 import java.awt.Component;
+import java.awt.Font;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+import rentcar.layerd.controller.RentController;
+import rentcar.layerd.controller.RentDetailsController;
+import rentcar.layerd.dto.CustomerDto;
+import rentcar.layerd.dto.RentDetailsDto;
+import rentcar.layerd.dto.RentDto;
 import rentcar.layerd.view.HomeView;
+import rentcar.layerd.view.CustomerDetailsView;
+import rentcar.layerd.view.UpdateRentView;
 
 /**
  *
  * @author TOSHIBA
  */
 public class RentView extends javax.swing.JFrame {
+    public static RentView instance;
+    
+    public JTextField txtid;
+     public JTextField txtnic;
+     public JTextField txtcarid;
 
-    /**
-     * Creates new form RentView
-     */
+    private RentController rentController;
+    private RentDetailsController rentDetailsController;
+    SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd");
     public RentView() {
         
-       
+       rentController=new RentController();
+       rentDetailsController=new RentDetailsController();
         initComponents();
+        instance=this;
+        txtid=custid;
+        txtnic=custnictext;
+       txtcarid= caridtext;
+        loadAllrents();
         Color color1=rentIdtext.getBackground();
         fromdate.setBorder(new LineBorder(color1));
         todate.setBorder(new LineBorder(color1));
@@ -65,22 +94,19 @@ public class RentView extends javax.swing.JFrame {
         balancetxt = new javax.swing.JTextField();
         customerContacttxt = new javax.swing.JLabel();
         btnsearchcar = new javax.swing.JButton();
-        updateCustButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        rentTable = new javax.swing.JTable();
         fromdate = new com.toedter.calendar.JDateChooser();
         todate = new com.toedter.calendar.JDateChooser();
-        custid = new javax.swing.JTextField();
+        custnictext = new javax.swing.JTextField();
         perdaypricetxt = new javax.swing.JTextField();
         customerAddressLabel2 = new javax.swing.JLabel();
         customerContacttxt1 = new javax.swing.JLabel();
         customerAddressLabel3 = new javax.swing.JLabel();
         refundtxt = new javax.swing.JTextField();
-        addCustButton1 = new javax.swing.JButton();
+        addCustButton = new javax.swing.JButton();
         btnsearchcust = new javax.swing.JButton();
         btnback = new javax.swing.JButton();
-        btndelete1 = new javax.swing.JButton();
+        custid = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -96,7 +122,7 @@ public class RentView extends javax.swing.JFrame {
         headerPanelLayout.setHorizontalGroup(
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerPanelLayout.createSequentialGroup()
-                .addComponent(headerlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1396, Short.MAX_VALUE)
+                .addComponent(headerlabel, javax.swing.GroupLayout.DEFAULT_SIZE, 1404, Short.MAX_VALUE)
                 .addContainerGap())
         );
         headerPanelLayout.setVerticalGroup(
@@ -112,13 +138,14 @@ public class RentView extends javax.swing.JFrame {
 
         customerTitleLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerTitleLabel.setText("From");
-        homepanel.add(customerTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 130, 50, 40));
+        homepanel.add(customerTitleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 50, 40));
 
         customerIdLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        customerIdLabel.setText("Select Customer");
-        homepanel.add(customerIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, 140, 40));
+        customerIdLabel.setText("Customer");
+        homepanel.add(customerIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 140, 40));
 
         rentIdtext.setBackground(new java.awt.Color(255, 204, 102));
+        rentIdtext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         rentIdtext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         rentIdtext.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -142,14 +169,17 @@ public class RentView extends javax.swing.JFrame {
                 rentIdtextKeyReleased(evt);
             }
         });
-        homepanel.add(rentIdtext, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 290, 40));
+        homepanel.add(rentIdtext, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 70, 290, 40));
 
         custIdLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        custIdLabel.setText("Select  Car");
-        homepanel.add(custIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 100, 34));
+        custIdLabel.setText("Car");
+        homepanel.add(custIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 100, 34));
 
         caridtext.setBackground(new java.awt.Color(255, 204, 102));
+        caridtext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         caridtext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        caridtext.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        caridtext.setEnabled(false);
         caridtext.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 caridtextMouseExited(evt);
@@ -168,17 +198,18 @@ public class RentView extends javax.swing.JFrame {
                 caridtextKeyReleased(evt);
             }
         });
-        homepanel.add(caridtext, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 290, 40));
+        homepanel.add(caridtext, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 200, 290, 40));
 
         custniclabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         custniclabel.setText("To");
-        homepanel.add(custniclabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(1050, 130, 40, 40));
+        homepanel.add(custniclabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 60, 40, 40));
 
         customerAddressLabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerAddressLabel.setText("Advanced Payment (Rs)");
-        homepanel.add(customerAddressLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 210, 34));
+        homepanel.add(customerAddressLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 260, 210, 34));
 
         advancetxt.setBackground(new java.awt.Color(255, 204, 102));
+        advancetxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         advancetxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         advancetxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,9 +221,10 @@ public class RentView extends javax.swing.JFrame {
                 advancetxtKeyReleased(evt);
             }
         });
-        homepanel.add(advancetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 190, 290, 40));
+        homepanel.add(advancetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 260, 290, 40));
 
         totaltxt.setBackground(new java.awt.Color(255, 204, 102));
+        totaltxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         totaltxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         totaltxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,13 +236,14 @@ public class RentView extends javax.swing.JFrame {
                 totaltxtKeyReleased(evt);
             }
         });
-        homepanel.add(totaltxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 260, 290, 40));
+        homepanel.add(totaltxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 320, 290, 40));
 
         customerrentidlabel.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerrentidlabel.setText(" ID");
-        homepanel.add(customerrentidlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 95, 31));
+        homepanel.add(customerrentidlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 80, 31));
 
         balancetxt.setBackground(new java.awt.Color(255, 204, 102));
+        balancetxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         balancetxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         balancetxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,11 +255,11 @@ public class RentView extends javax.swing.JFrame {
                 balancetxtKeyReleased(evt);
             }
         });
-        homepanel.add(balancetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 330, 290, 40));
+        homepanel.add(balancetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 400, 290, 40));
 
         customerContacttxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         customerContacttxt.setText("Balance (Rs)");
-        homepanel.add(customerContacttxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 112, 27));
+        homepanel.add(customerContacttxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 112, 27));
 
         btnsearchcar.setBackground(new java.awt.Color(255, 153, 0));
         btnsearchcar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -238,1052 +271,16 @@ public class RentView extends javax.swing.JFrame {
                 btnsearchcarActionPerformed(evt);
             }
         });
-        homepanel.add(btnsearchcar, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, 120, 39));
-
-        updateCustButton.setBackground(new java.awt.Color(255, 153, 0));
-        updateCustButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        updateCustButton.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconupdate.png")); // NOI18N
-        updateCustButton.setText("Update ");
-        updateCustButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        updateCustButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        updateCustButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateCustButtonActionPerformed(evt);
-            }
-        });
-        homepanel.add(updateCustButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 330, 160, 50));
+        homepanel.add(btnsearchcar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 120, 39));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel1.setText("Manage Rent");
+        jLabel1.setText("New Rent");
         homepanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 332, 40));
-
-        jScrollPane1.setPreferredSize(new java.awt.Dimension(600, 600));
-
-        rentTable.setBackground(new java.awt.Color(204, 255, 204));
-        rentTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
-            }
-        ));
-        rentTable.setPreferredSize(new java.awt.Dimension(9000, 9000));
-        rentTable.setRowHeight(30);
-        rentTable.setShowGrid(false);
-        rentTable.setShowVerticalLines(true);
-        rentTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rentTableMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(rentTable);
-
-        homepanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 390, 800, 165));
 
         fromdate.setBackground(new java.awt.Color(255, 204, 102));
         fromdate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         fromdate.setDateFormatString("yyyy-MM-dd ");
-        fromdate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        fromdate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         fromdate.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 fromdateAncestorAdded(evt);
@@ -1293,12 +290,12 @@ public class RentView extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        homepanel.add(fromdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 130, 210, 40));
+        homepanel.add(fromdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 70, 210, 40));
 
         todate.setBackground(new java.awt.Color(255, 204, 102));
         todate.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         todate.setDateFormatString("yyyy-MM-dd ");
-        todate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        todate.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         todate.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 todateAncestorAdded(evt);
@@ -1308,10 +305,122 @@ public class RentView extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        homepanel.add(todate, new org.netbeans.lib.awtextra.AbsoluteConstraints(1110, 130, 220, 40));
+        homepanel.add(todate, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 70, 220, 40));
+
+        custnictext.setBackground(new java.awt.Color(255, 204, 102));
+        custnictext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        custnictext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        custnictext.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        custnictext.setEnabled(false);
+        custnictext.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                custnictextMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                custnictextMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                custnictextMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                custnictextMouseReleased(evt);
+            }
+        });
+        custnictext.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                custnictextKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                custnictextKeyReleased(evt);
+            }
+        });
+        homepanel.add(custnictext, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 140, 370, 40));
+
+        perdaypricetxt.setBackground(new java.awt.Color(255, 204, 102));
+        perdaypricetxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        perdaypricetxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        perdaypricetxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                perdaypricetxtActionPerformed(evt);
+            }
+        });
+        perdaypricetxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                perdaypricetxtKeyReleased(evt);
+            }
+        });
+        homepanel.add(perdaypricetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, 290, 40));
+
+        customerAddressLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        customerAddressLabel2.setText("Per Day Rent (Rs)");
+        homepanel.add(customerAddressLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 160, 34));
+
+        customerContacttxt1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        customerContacttxt1.setText("Total (Rs)");
+        homepanel.add(customerContacttxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 330, 112, 27));
+
+        customerAddressLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        customerAddressLabel3.setText("Refundable Deposit (Rs) ");
+        homepanel.add(customerAddressLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 220, 34));
+
+        refundtxt.setBackground(new java.awt.Color(255, 204, 102));
+        refundtxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        refundtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        refundtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                refundtxtActionPerformed(evt);
+            }
+        });
+        refundtxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                refundtxtKeyReleased(evt);
+            }
+        });
+        homepanel.add(refundtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 330, 290, 40));
+
+        addCustButton.setBackground(new java.awt.Color(255, 153, 0));
+        addCustButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        addCustButton.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsave.png")); // NOI18N
+        addCustButton.setText("Save ");
+        addCustButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
+        addCustButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addCustButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addCustButtonActionPerformed(evt);
+            }
+        });
+        homepanel.add(addCustButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 150, 50));
+
+        btnsearchcust.setBackground(new java.awt.Color(255, 153, 0));
+        btnsearchcust.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnsearchcust.setText("Search");
+        btnsearchcust.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
+        btnsearchcust.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnsearchcust.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnsearchcustActionPerformed(evt);
+            }
+        });
+        homepanel.add(btnsearchcust, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 120, 39));
+
+        btnback.setBackground(new java.awt.Color(255, 153, 0));
+        btnback.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnback.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconback.png")); // NOI18N
+        btnback.setText("Back");
+        btnback.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
+        btnback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
+        homepanel.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, 170, 50));
 
         custid.setBackground(new java.awt.Color(255, 204, 102));
+        custid.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         custid.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        custid.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        custid.setEnabled(false);
         custid.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 custidMouseClicked(evt);
@@ -1334,100 +443,10 @@ public class RentView extends javax.swing.JFrame {
                 custidKeyReleased(evt);
             }
         });
-        homepanel.add(custid, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 70, 290, 40));
-
-        perdaypricetxt.setBackground(new java.awt.Color(255, 204, 102));
-        perdaypricetxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
-        perdaypricetxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                perdaypricetxtActionPerformed(evt);
-            }
-        });
-        perdaypricetxt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                perdaypricetxtKeyReleased(evt);
-            }
-        });
-        homepanel.add(perdaypricetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 190, 290, 40));
-
-        customerAddressLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        customerAddressLabel2.setText("Per Day Rent (Rs)");
-        homepanel.add(customerAddressLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 160, 34));
-
-        customerContacttxt1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        customerContacttxt1.setText("Total (Rs)");
-        homepanel.add(customerContacttxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, 112, 27));
-
-        customerAddressLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        customerAddressLabel3.setText("Refundable Deposit (Rs) ");
-        homepanel.add(customerAddressLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 220, 34));
-
-        refundtxt.setBackground(new java.awt.Color(255, 204, 102));
-        refundtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
-        refundtxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refundtxtActionPerformed(evt);
-            }
-        });
-        refundtxt.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                refundtxtKeyReleased(evt);
-            }
-        });
-        homepanel.add(refundtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 260, 290, 40));
-
-        addCustButton1.setBackground(new java.awt.Color(255, 153, 0));
-        addCustButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        addCustButton1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsave.png")); // NOI18N
-        addCustButton1.setText("Save ");
-        addCustButton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        addCustButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        addCustButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addCustButton1ActionPerformed(evt);
-            }
-        });
-        homepanel.add(addCustButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 330, 150, 50));
-
-        btnsearchcust.setBackground(new java.awt.Color(255, 153, 0));
-        btnsearchcust.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnsearchcust.setText("Search");
-        btnsearchcust.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        btnsearchcust.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnsearchcust.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsearchcustActionPerformed(evt);
-            }
-        });
-        homepanel.add(btnsearchcust, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 70, 120, 39));
-
-        btnback.setBackground(new java.awt.Color(255, 153, 0));
-        btnback.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btnback.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconback.png")); // NOI18N
-        btnback.setText("Back");
-        btnback.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        btnback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnback.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnbackActionPerformed(evt);
-            }
-        });
-        homepanel.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(1150, 480, 170, 50));
-
-        btndelete1.setBackground(new java.awt.Color(255, 153, 0));
-        btndelete1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        btndelete1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\icondelete.png")); // NOI18N
-        btndelete1.setText("Delete");
-        btndelete1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        btndelete1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btndelete1ActionPerformed(evt);
-            }
-        });
-        homepanel.add(btndelete1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 330, 160, 50));
+        homepanel.add(custid, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 140, 290, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log9.jpg")); // NOI18N
-        homepanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1400, 570));
+        homepanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1410, 570));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -1437,7 +456,7 @@ public class RentView extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(homepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1400, Short.MAX_VALUE)
+                    .addComponent(homepanel, javax.swing.GroupLayout.DEFAULT_SIZE, 1410, Short.MAX_VALUE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
@@ -1504,16 +523,8 @@ public class RentView extends javax.swing.JFrame {
     }//GEN-LAST:event_balancetxtKeyReleased
 
     private void btnsearchcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchcarActionPerformed
-
+new AvailableCarView().setVisible(true);
     }//GEN-LAST:event_btnsearchcarActionPerformed
-
-    private void updateCustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCustButtonActionPerformed
-
-    }//GEN-LAST:event_updateCustButtonActionPerformed
-
-    private void rentTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rentTableMouseClicked
-
-    }//GEN-LAST:event_rentTableMouseClicked
 
     private void fromdateAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_fromdateAncestorAdded
        
@@ -1523,29 +534,29 @@ public class RentView extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_todateAncestorAdded
 
-    private void custidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custidMouseClicked
+    private void custnictextMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custnictextMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_custidMouseClicked
+    }//GEN-LAST:event_custnictextMouseClicked
 
-    private void custidMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custidMouseEntered
+    private void custnictextMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custnictextMouseEntered
         // TODO add your handling code here:
-    }//GEN-LAST:event_custidMouseEntered
+    }//GEN-LAST:event_custnictextMouseEntered
 
-    private void custidMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custidMouseExited
+    private void custnictextMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custnictextMouseExited
         // TODO add your handling code here:
-    }//GEN-LAST:event_custidMouseExited
+    }//GEN-LAST:event_custnictextMouseExited
 
-    private void custidMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custidMouseReleased
+    private void custnictextMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custnictextMouseReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_custidMouseReleased
+    }//GEN-LAST:event_custnictextMouseReleased
 
-    private void custidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_custidKeyPressed
+    private void custnictextKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_custnictextKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_custidKeyPressed
+    }//GEN-LAST:event_custnictextKeyPressed
 
-    private void custidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_custidKeyReleased
+    private void custnictextKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_custnictextKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_custidKeyReleased
+    }//GEN-LAST:event_custnictextKeyReleased
 
     private void perdaypricetxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perdaypricetxtActionPerformed
         // TODO add your handling code here:
@@ -1579,12 +590,18 @@ public class RentView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_caridtextMouseExited
 
-    private void addCustButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_addCustButton1ActionPerformed
+    private void addCustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustButtonActionPerformed
+        try {
+            addrent();
+        } catch (Exception ex) {
+            Logger.getLogger(RentView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_addCustButtonActionPerformed
 
     private void btnsearchcustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchcustActionPerformed
-        // TODO add your handling code here:
+
+new CustomerDetailsView().setVisible(true);
+setnic();
     }//GEN-LAST:event_btnsearchcustActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
@@ -1593,9 +610,29 @@ public class RentView extends javax.swing.JFrame {
        
     }//GEN-LAST:event_btnbackActionPerformed
 
-    private void btndelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndelete1ActionPerformed
+    private void custidMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custidMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_btndelete1ActionPerformed
+    }//GEN-LAST:event_custidMouseClicked
+
+    private void custidMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custidMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_custidMouseEntered
+
+    private void custidMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custidMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_custidMouseExited
+
+    private void custidMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_custidMouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_custidMouseReleased
+
+    private void custidKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_custidKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_custidKeyPressed
+
+    private void custidKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_custidKeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_custidKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1633,17 +670,17 @@ public class RentView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addCustButton1;
+    private javax.swing.JButton addCustButton;
     private javax.swing.JTextField advancetxt;
     private javax.swing.JTextField balancetxt;
     private javax.swing.JButton btnback;
-    private javax.swing.JButton btndelete1;
     private javax.swing.JButton btnsearchcar;
     private javax.swing.JButton btnsearchcust;
     private javax.swing.JTextField caridtext;
     private javax.swing.JLabel custIdLabel;
     private javax.swing.JTextField custid;
     private javax.swing.JLabel custniclabel;
+    private javax.swing.JTextField custnictext;
     private javax.swing.JLabel customerAddressLabel;
     private javax.swing.JLabel customerAddressLabel2;
     private javax.swing.JLabel customerAddressLabel3;
@@ -1658,13 +695,73 @@ public class RentView extends javax.swing.JFrame {
     private javax.swing.JPanel homepanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField perdaypricetxt;
     private javax.swing.JTextField refundtxt;
     private javax.swing.JTextField rentIdtext;
-    private javax.swing.JTable rentTable;
     private com.toedter.calendar.JDateChooser todate;
     private javax.swing.JTextField totaltxt;
-    private javax.swing.JButton updateCustButton;
     // End of variables declaration//GEN-END:variables
-}
+
+    
+    
+    
+    private void addrent() throws Exception {
+       RentDto rentDto=new RentDto(rentIdtext.getText(),custid.getText(),fromdate.getDate(),todate.getDate(),caridtext.getText(),
+        Double.parseDouble(perdaypricetxt.getText()),Double.parseDouble(advancetxt.getText()),Double.parseDouble(refundtxt.getText()),
+       Double.parseDouble(totaltxt.getText()),Double.parseDouble(balancetxt.getText()));
+   
+    String result=rentController.addRent(rentDto);
+    JOptionPane.showMessageDialog(this, result);
+    adddetails();
+    clear();
+    loadAllrents(); 
+    }
+
+    private void updaterent() {
+      
+    }
+
+    private void deleterent() {
+      
+    }
+
+    private void loadAllrents() {
+       
+        
+    }
+
+    private void clear() {
+        rentIdtext.setText("");
+        custid.setText("");
+        fromdate.setDate(null);
+        todate.setDate(null);
+       caridtext.setText("");
+        perdaypricetxt.setText("");
+        advancetxt.setText("");
+        refundtxt.setText("");
+       totaltxt.setText("");
+      balancetxt.setText("");
+      custnictext.setText("");
+    }
+
+    private void adddetails() throws Exception {
+        RentDetailsDto rentDetailsDto=new RentDetailsDto(rentIdtext.getText(),custid.getText(),caridtext.getText(),fromdate.getDate(),todate.getDate(),
+        custnictext.getText());
+   
+    String result=rentDetailsController.addRentDetails(rentDetailsDto);
+    JOptionPane.showMessageDialog(this, result); 
+    }
+
+    private void setnic() {
+        
+    }
+
+
+
+
+   
+    }
+
+    
+    
+

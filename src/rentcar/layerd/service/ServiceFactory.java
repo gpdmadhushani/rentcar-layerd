@@ -4,9 +4,12 @@
  */
 package rentcar.layerd.service;
 
+import rentcar.layerd.service.custom.impl.CarReturnServiceImpl;
 import rentcar.layerd.service.custom.impl.CarServiceImpl;
 import rentcar.layerd.service.custom.impl.CategoryServiceImpl;
 import rentcar.layerd.service.custom.impl.CustomerServiceImpl;
+import rentcar.layerd.service.custom.impl.RentDetailsServiceImpl;
+import rentcar.layerd.service.custom.impl.RentServiceImpl;
 import rentcar.layerd.service.custom.impl.UserServiceImpl;
 
 /**
@@ -38,13 +41,21 @@ public class ServiceFactory {
                 
                  case CUSTOMER:
                 return new CustomerServiceImpl();
-            default:
+            case RENT:
+                return new RentServiceImpl();
+                 case RENTDETAILS:
+                return new RentDetailsServiceImpl();
+                
+                case CARRETURN:
+                return new CarReturnServiceImpl();
+                
+                 default:
                 return null;
         
     }
         
     }
     public enum ServiceType{
-        USER,CATEGORY,CAR,CUSTOMER
+        USER,CATEGORY,CAR,CUSTOMER,RENT,RENTDETAILS,CARRETURN
     }
 }
