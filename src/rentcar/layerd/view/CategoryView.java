@@ -93,7 +93,7 @@ public class CategoryView extends javax.swing.JFrame {
         jPanel1.add(namelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 98, 83, 30));
 
         nametxt.setBackground(new java.awt.Color(255, 204, 102));
-        nametxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        nametxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         nametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         nametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +107,7 @@ public class CategoryView extends javax.swing.JFrame {
         jPanel1.add(idlabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 104, 74, 30));
 
         cateidtext.setBackground(new java.awt.Color(255, 204, 102));
-        cateidtext.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        cateidtext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         cateidtext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         cateidtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

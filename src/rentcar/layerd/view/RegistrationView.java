@@ -106,7 +106,7 @@ private UserController userController;
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 200, 50));
 
         useridtext.setBackground(new java.awt.Color(255, 204, 102));
-        useridtext.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        useridtext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         useridtext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         useridtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +120,7 @@ private UserController userController;
         jPanel1.add(firstnamelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 111, -1));
 
         mobiletxt.setBackground(new java.awt.Color(255, 204, 102));
-        mobiletxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        mobiletxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         mobiletxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         mobiletxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,7 +134,7 @@ private UserController userController;
         jPanel1.add(genderlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 108, -1));
 
         lastnametxt.setBackground(new java.awt.Color(255, 204, 102));
-        lastnametxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lastnametxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lastnametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         lastnametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +148,7 @@ private UserController userController;
         jPanel1.add(emaillabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 132, -1));
 
         emailtxt.setBackground(new java.awt.Color(255, 204, 102));
-        emailtxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        emailtxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         emailtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         emailtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,7 +162,7 @@ private UserController userController;
         jPanel1.add(passwordlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 105, -1));
 
         usernametxt.setBackground(new java.awt.Color(255, 204, 102));
-        usernametxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        usernametxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         usernametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         usernametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +176,7 @@ private UserController userController;
         jPanel1.add(usernamelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 132, -1));
 
         PasswordField.setBackground(new java.awt.Color(255, 204, 102));
-        PasswordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        PasswordField.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         PasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         PasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +205,7 @@ private UserController userController;
         jPanel1.add(confirmpasswordlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 420, -1, -1));
 
         conPasswordField.setBackground(new java.awt.Color(255, 204, 102));
-        conPasswordField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        conPasswordField.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         conPasswordField.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         conPasswordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -256,7 +256,7 @@ private UserController userController;
         jPanel1.add(titlelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, 111, -1));
 
         firstnametxt.setBackground(new java.awt.Color(255, 204, 102));
-        firstnametxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        firstnametxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         firstnametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         firstnametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

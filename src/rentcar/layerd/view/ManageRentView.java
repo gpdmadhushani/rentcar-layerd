@@ -27,28 +27,17 @@ public class ManageRentView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel3 = new javax.swing.JPanel();
-        upbutton = new javax.swing.JButton();
         allrentbutton = new javax.swing.JButton();
         addbutton = new javax.swing.JButton();
         returnbutton = new javax.swing.JButton();
-        deletebutton = new javax.swing.JButton();
         overbutton = new javax.swing.JButton();
+        btnback = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
-
-        upbutton.setBackground(new java.awt.Color(255, 153, 0));
-        upbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        upbutton.setText("Update  Rent");
-        upbutton.setActionCommand("Manage Car");
-        upbutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        upbutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        upbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                upbuttonActionPerformed(evt);
-            }
-        });
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         allrentbutton.setBackground(new java.awt.Color(255, 153, 0));
         allrentbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -61,6 +50,7 @@ public class ManageRentView extends javax.swing.JFrame {
                 allrentbuttonActionPerformed(evt);
             }
         });
+        jPanel3.add(allrentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 128, 250, 52));
 
         addbutton.setBackground(new java.awt.Color(255, 153, 0));
         addbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -73,6 +63,7 @@ public class ManageRentView extends javax.swing.JFrame {
                 addbuttonActionPerformed(evt);
             }
         });
+        jPanel3.add(addbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 128, 250, 52));
 
         returnbutton.setBackground(new java.awt.Color(255, 153, 0));
         returnbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -85,18 +76,7 @@ public class ManageRentView extends javax.swing.JFrame {
                 returnbuttonActionPerformed(evt);
             }
         });
-
-        deletebutton.setBackground(new java.awt.Color(255, 153, 0));
-        deletebutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        deletebutton.setText("Delete  Rent");
-        deletebutton.setActionCommand("Manage Car");
-        deletebutton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        deletebutton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        deletebutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deletebuttonActionPerformed(evt);
-            }
-        });
+        jPanel3.add(returnbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 284, 250, 52));
 
         overbutton.setBackground(new java.awt.Color(255, 153, 0));
         overbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -109,45 +89,23 @@ public class ManageRentView extends javax.swing.JFrame {
                 overbuttonActionPerformed(evt);
             }
         });
+        jPanel3.add(overbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(47, 284, 250, 52));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(61, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(deletebutton, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(addbutton, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(overbutton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(57, 57, 57)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(upbutton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(allrentbutton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(returnbutton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(86, 86, 86))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(upbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(222, 222, 222)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(returnbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(overbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deletebutton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(allrentbutton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(301, 301, 301))))
-        );
+        btnback.setBackground(new java.awt.Color(255, 153, 0));
+        btnback.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnback.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconback.png")); // NOI18N
+        btnback.setText("Back");
+        btnback.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
+        btnback.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnback.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnbackActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 440, 200, 50));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log9.jpg")); // NOI18N
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, 560));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -157,18 +115,11 @@ public class ManageRentView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 563, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void upbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_upbuttonActionPerformed
-        dispose();
-        new UpdateRentView().setVisible(rootPaneCheckingEnabled);
-    }//GEN-LAST:event_upbuttonActionPerformed
 
     private void allrentbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allrentbuttonActionPerformed
 dispose();
@@ -186,15 +137,15 @@ dispose();
        new CarReturnView().setVisible(true);
     }//GEN-LAST:event_returnbuttonActionPerformed
 
-    private void deletebuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletebuttonActionPerformed
-        dispose();
-        new DeleteRentView().setVisible(true);
-    }//GEN-LAST:event_deletebuttonActionPerformed
-
     private void overbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_overbuttonActionPerformed
        dispose();
        new OverDueRentView().setVisible(true);
     }//GEN-LAST:event_overbuttonActionPerformed
+
+    private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
+        dispose();
+        new HomeView().setVisible(true);
+    }//GEN-LAST:event_btnbackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -233,25 +184,11 @@ dispose();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addbutton;
-    private javax.swing.JButton addrentbtn;
-    private javax.swing.JButton addrentbtn1;
-    private javax.swing.JButton allrentbtn;
-    private javax.swing.JButton allrentbtn1;
     private javax.swing.JButton allrentbutton;
-    private javax.swing.JButton deletebutton;
-    private javax.swing.JButton deleterentbtn;
-    private javax.swing.JButton deleterentbtn1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton btnback;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JButton overbutton;
-    private javax.swing.JButton overduerentbtn;
-    private javax.swing.JButton overduerentbtn1;
     private javax.swing.JButton returnbutton;
-    private javax.swing.JButton returncarbtn;
-    private javax.swing.JButton returncarbtn1;
-    private javax.swing.JButton upbutton;
-    private javax.swing.JButton updaterentbtn;
-    private javax.swing.JButton updaterentbtn1;
     // End of variables declaration//GEN-END:variables
 }

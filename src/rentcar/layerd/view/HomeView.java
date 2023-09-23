@@ -40,7 +40,6 @@ public class HomeView extends javax.swing.JFrame {
         carbutton = new javax.swing.JButton();
         custbutton1 = new javax.swing.JButton();
         rentbutton = new javax.swing.JButton();
-        reoortbutton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -105,7 +104,7 @@ public class HomeView extends javax.swing.JFrame {
                 categoerybuttonActionPerformed(evt);
             }
         });
-        jPanel2.add(categoerybutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 250, 40));
+        jPanel2.add(categoerybutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 250, 40));
 
         carbutton.setBackground(new java.awt.Color(255, 153, 0));
         carbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -118,7 +117,7 @@ public class HomeView extends javax.swing.JFrame {
                 carbuttonActionPerformed(evt);
             }
         });
-        jPanel2.add(carbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 250, 40));
+        jPanel2.add(carbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 250, 40));
 
         custbutton1.setBackground(new java.awt.Color(255, 153, 0));
         custbutton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -132,7 +131,7 @@ public class HomeView extends javax.swing.JFrame {
                 custbutton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(custbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 250, 40));
+        jPanel2.add(custbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 250, 40));
 
         rentbutton.setBackground(new java.awt.Color(255, 153, 0));
         rentbutton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -146,21 +145,7 @@ public class HomeView extends javax.swing.JFrame {
                 rentbuttonActionPerformed(evt);
             }
         });
-        jPanel2.add(rentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 250, 40));
-
-        reoortbutton1.setBackground(new java.awt.Color(255, 153, 0));
-        reoortbutton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        reoortbutton1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconbill.png")); // NOI18N
-        reoortbutton1.setText("                 Reports");
-        reoortbutton1.setActionCommand("Manage Car");
-        reoortbutton1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        reoortbutton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        reoortbutton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reoortbutton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(reoortbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 250, 40));
+        jPanel2.add(rentbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 250, 40));
 
         jLabel2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\car11.png")); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, -1, 460));
@@ -201,10 +186,6 @@ public class HomeView extends javax.swing.JFrame {
         dispose();
         new ManageRentView().setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_rentbuttonActionPerformed
-
-    private void reoortbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reoortbutton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_reoortbutton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,6 +235,5 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton logoutbutton;
     private javax.swing.JButton rentbutton;
-    private javax.swing.JButton reoortbutton1;
     // End of variables declaration//GEN-END:variables
 }

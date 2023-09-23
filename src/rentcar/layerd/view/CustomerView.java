@@ -80,7 +80,7 @@ public class CustomerView extends javax.swing.JFrame {
         homepanel.add(customerIdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 99, 34));
 
         custIdtext.setBackground(new java.awt.Color(255, 204, 102));
-        custIdtext.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        custIdtext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         custIdtext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         custIdtext.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -111,7 +111,7 @@ public class CustomerView extends javax.swing.JFrame {
         homepanel.add(customerNameLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 81, 34));
 
         custNametext.setBackground(new java.awt.Color(255, 204, 102));
-        custNametext.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        custNametext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         custNametext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         custNametext.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -138,7 +138,7 @@ public class CustomerView extends javax.swing.JFrame {
         homepanel.add(custniclabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 73, 27));
 
         custnictext.setBackground(new java.awt.Color(255, 204, 102));
-        custnictext.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        custnictext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         custnictext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         custnictext.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
@@ -160,7 +160,7 @@ public class CustomerView extends javax.swing.JFrame {
         homepanel.add(customerAddressLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 91, 34));
 
         custAddresstext.setBackground(new java.awt.Color(255, 204, 102));
-        custAddresstext.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        custAddresstext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         custAddresstext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         custAddresstext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -175,7 +175,7 @@ public class CustomerView extends javax.swing.JFrame {
         homepanel.add(custAddresstext, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 884, 40));
 
         custcontacttext.setBackground(new java.awt.Color(255, 204, 102));
-        custcontacttext.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        custcontacttext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         custcontacttext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         custcontacttext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

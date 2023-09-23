@@ -21,6 +21,7 @@ import rentcar.layerd.dto.CategoryDto;
 import java.time.LocalDateTime;  
 import java.time.format.DateTimeFormatter;  
 import static javax.print.attribute.Size2DSyntax.MM;
+import javax.swing.JTextField;
 import rentcar.layerd.controller.CarReturnController;
 import rentcar.layerd.controller.RentDetailsController;
 
@@ -33,6 +34,13 @@ public class CarReturnView extends javax.swing.JFrame {
     
     private CarReturnController carReturnController;
     private RentDetailsController rentDetailsController;
+    
+    
+    public static CarReturnView instance1;
+    
+    public JTextField txtrentid;
+     public JTextField txtcustid;
+     public JTextField txtcarid;
 
     /**
      * Creates new form CategoryView
@@ -41,8 +49,10 @@ public class CarReturnView extends javax.swing.JFrame {
        carReturnController=new CarReturnController ();
        rentDetailsController=new RentDetailsController();
         initComponents();
-        
-        
+        instance1=this;
+        txtrentid=rentidtext;
+        txtcustid=custidetxt;
+        txtcarid=caridetxt;
     }
 
     /**
@@ -62,9 +72,11 @@ public class CarReturnView extends javax.swing.JFrame {
         idlabel1 = new javax.swing.JLabel();
         rentidtext = new javax.swing.JTextField();
         btnback = new javax.swing.JButton();
-        savebtn1 = new javax.swing.JButton();
+        searchbtn = new javax.swing.JButton();
         namelabel1 = new javax.swing.JLabel();
         custidetxt = new javax.swing.JTextField();
+        savebtn2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,8 +110,10 @@ public class CarReturnView extends javax.swing.JFrame {
         jPanel1.add(namelabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 110, 30));
 
         caridetxt.setBackground(new java.awt.Color(255, 204, 102));
-        caridetxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        caridetxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         caridetxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        caridetxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        caridetxt.setEnabled(false);
         caridetxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caridetxtActionPerformed(evt);
@@ -112,8 +126,10 @@ public class CarReturnView extends javax.swing.JFrame {
         jPanel1.add(idlabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 100, 40));
 
         rentidtext.setBackground(new java.awt.Color(255, 204, 102));
-        rentidtext.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        rentidtext.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         rentidtext.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        rentidtext.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        rentidtext.setEnabled(false);
         rentidtext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rentidtextActionPerformed(evt);
@@ -134,32 +150,50 @@ public class CarReturnView extends javax.swing.JFrame {
         });
         jPanel1.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 340, 180, 50));
 
-        savebtn1.setBackground(new java.awt.Color(255, 153, 0));
-        savebtn1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        savebtn1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsave.png")); // NOI18N
-        savebtn1.setText("  Save");
-        savebtn1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
-        savebtn1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        savebtn1.addActionListener(new java.awt.event.ActionListener() {
+        searchbtn.setBackground(new java.awt.Color(255, 153, 0));
+        searchbtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        searchbtn.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsearch.png")); // NOI18N
+        searchbtn.setText("Search");
+        searchbtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
+        searchbtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        searchbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                savebtn1ActionPerformed(evt);
+                searchbtnActionPerformed(evt);
             }
         });
-        jPanel1.add(savebtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, 170, 50));
+        jPanel1.add(searchbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 190, 50));
 
         namelabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         namelabel1.setText("Customer ID");
         jPanel1.add(namelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 110, 30));
 
         custidetxt.setBackground(new java.awt.Color(255, 204, 102));
-        custidetxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        custidetxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         custidetxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        custidetxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        custidetxt.setEnabled(false);
         custidetxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 custidetxtActionPerformed(evt);
             }
         });
         jPanel1.add(custidetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 350, 40));
+
+        savebtn2.setBackground(new java.awt.Color(255, 153, 0));
+        savebtn2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        savebtn2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsave.png")); // NOI18N
+        savebtn2.setText("  Save");
+        savebtn2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
+        savebtn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        savebtn2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                savebtn2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(savebtn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, 170, 50));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log9.jpg")); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1150, 580));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,21 +229,25 @@ public class CarReturnView extends javax.swing.JFrame {
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
         dispose();
-        new HomeView().setVisible(true);
+        new ManageRentView().setVisible(true);
     }//GEN-LAST:event_btnbackActionPerformed
 
-    private void savebtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtn1ActionPerformed
-        try {
+    private void searchbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbtnActionPerformed
+new AvailableRentView() .setVisible(true);
+    }//GEN-LAST:event_searchbtnActionPerformed
+
+    private void custidetxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custidetxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_custidetxtActionPerformed
+
+    private void savebtn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtn2ActionPerformed
+       try {
             addreturn();
            
         } catch (Exception ex) {
             Logger.getLogger(CarReturnView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_savebtn1ActionPerformed
-
-    private void custidetxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custidetxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_custidetxtActionPerformed
+    }//GEN-LAST:event_savebtn2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -254,11 +292,13 @@ public class CarReturnView extends javax.swing.JFrame {
     private javax.swing.JPanel headerPanel;
     private javax.swing.JLabel headerlabel;
     private javax.swing.JLabel idlabel1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel namelabel;
     private javax.swing.JLabel namelabel1;
     private javax.swing.JTextField rentidtext;
-    private javax.swing.JButton savebtn1;
+    private javax.swing.JButton savebtn2;
+    private javax.swing.JButton searchbtn;
     // End of variables declaration//GEN-END:variables
 
     private void addreturn() throws Exception {

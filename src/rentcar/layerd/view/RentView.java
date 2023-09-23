@@ -26,8 +26,8 @@ import rentcar.layerd.dto.CustomerDto;
 import rentcar.layerd.dto.RentDetailsDto;
 import rentcar.layerd.dto.RentDto;
 import rentcar.layerd.view.HomeView;
-import rentcar.layerd.view.CustomerDetailsView;
-import rentcar.layerd.view.UpdateRentView;
+
+
 
 /**
  *
@@ -39,6 +39,7 @@ public class RentView extends javax.swing.JFrame {
     public JTextField txtid;
      public JTextField txtnic;
      public JTextField txtcarid;
+     public JTextField txtperday;
 
     private RentController rentController;
     private RentDetailsController rentDetailsController;
@@ -52,6 +53,7 @@ public class RentView extends javax.swing.JFrame {
         txtid=custid;
         txtnic=custnictext;
        txtcarid= caridtext;
+       txtperday=perdaypricetxt;
         loadAllrents();
         Color color1=rentIdtext.getBackground();
         fromdate.setBorder(new LineBorder(color1));
@@ -263,6 +265,7 @@ public class RentView extends javax.swing.JFrame {
 
         btnsearchcar.setBackground(new java.awt.Color(255, 153, 0));
         btnsearchcar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnsearchcar.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsearch.png")); // NOI18N
         btnsearchcar.setText("Search");
         btnsearchcar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         btnsearchcar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -271,7 +274,7 @@ public class RentView extends javax.swing.JFrame {
                 btnsearchcarActionPerformed(evt);
             }
         });
-        homepanel.add(btnsearchcar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 120, 39));
+        homepanel.add(btnsearchcar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 140, 39));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         jLabel1.setText("New Rent");
@@ -339,6 +342,8 @@ public class RentView extends javax.swing.JFrame {
         perdaypricetxt.setBackground(new java.awt.Color(255, 204, 102));
         perdaypricetxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         perdaypricetxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
+        perdaypricetxt.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        perdaypricetxt.setEnabled(false);
         perdaypricetxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 perdaypricetxtActionPerformed(evt);
@@ -393,6 +398,7 @@ public class RentView extends javax.swing.JFrame {
 
         btnsearchcust.setBackground(new java.awt.Color(255, 153, 0));
         btnsearchcust.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnsearchcust.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsearch.png")); // NOI18N
         btnsearchcust.setText("Search");
         btnsearchcust.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         btnsearchcust.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -401,7 +407,7 @@ public class RentView extends javax.swing.JFrame {
                 btnsearchcustActionPerformed(evt);
             }
         });
-        homepanel.add(btnsearchcust, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 120, 39));
+        homepanel.add(btnsearchcust, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 140, 140, 39));
 
         btnback.setBackground(new java.awt.Color(255, 153, 0));
         btnback.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -414,7 +420,7 @@ public class RentView extends javax.swing.JFrame {
                 btnbackActionPerformed(evt);
             }
         });
-        homepanel.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, 170, 50));
+        homepanel.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 420, 170, 50));
 
         custid.setBackground(new java.awt.Color(255, 204, 102));
         custid.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -600,13 +606,13 @@ new AvailableCarView().setVisible(true);
 
     private void btnsearchcustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchcustActionPerformed
 
-new CustomerDetailsView().setVisible(true);
-setnic();
+new AvailableCustomerView().setVisible(true);
+
     }//GEN-LAST:event_btnsearchcustActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
        dispose();
-       new HomeView().setVisible(true);
+       new ManageRentView().setVisible(true);
        
     }//GEN-LAST:event_btnbackActionPerformed
 
@@ -752,9 +758,7 @@ setnic();
     JOptionPane.showMessageDialog(this, result); 
     }
 
-    private void setnic() {
-        
-    }
+    
 
 
 

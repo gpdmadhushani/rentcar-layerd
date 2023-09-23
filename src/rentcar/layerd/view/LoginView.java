@@ -93,7 +93,7 @@ public class LoginView extends javax.swing.JFrame {
         jPanel1.add(passwordlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 200, 176, 30));
 
         usernametxt.setBackground(new java.awt.Color(255, 204, 102));
-        usernametxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        usernametxt.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         usernametxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         usernametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,6 +107,7 @@ public class LoginView extends javax.swing.JFrame {
         jPanel1.add(usernamelabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 110, 176, 30));
 
         passwordtxt.setBackground(new java.awt.Color(255, 204, 102));
+        passwordtxt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         passwordtxt.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 204, 102)));
         passwordtxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

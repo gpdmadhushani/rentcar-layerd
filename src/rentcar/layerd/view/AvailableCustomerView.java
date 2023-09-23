@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import rentcar.layerd.controller.CarController;
 import rentcar.layerd.controller.CategoryController;
+import rentcar.layerd.controller.CustomerController;
 import rentcar.layerd.controller.RentDetailsController;
 import rentcar.layerd.dao.CrudUtil;
 import rentcar.layerd.dto.CarDto;
@@ -28,20 +29,22 @@ import rentcar.layerd.view.HomeView;
  *
  * @author TOSHIBA
  */
-public class AvailableCarView extends javax.swing.JFrame {
+public class AvailableCustomerView extends javax.swing.JFrame {
 
      private CarController carController;
      private CategoryController categoryController; 
      private RentDetailsController rentDetailsController;
-    public AvailableCarView() {
+     private CustomerController customerController;
+    public AvailableCustomerView() {
        carController=new CarController();
        categoryController=new CategoryController();
        rentDetailsController=new RentDetailsController();
+       customerController=new CustomerController();
         initComponents();
          try {
-             loadAllcars();
+             loadAllcustomers();
          } catch (Exception ex) {
-             Logger.getLogger(AvailableCarView.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(AvailableCustomerView.class.getName()).log(Level.SEVERE, null, ex);
          }
          
         
@@ -60,7 +63,7 @@ public class AvailableCarView extends javax.swing.JFrame {
         savebtn = new javax.swing.JButton();
         btnback = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        carTable = new javax.swing.JTable();
+        cusTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         headerPanel1 = new javax.swing.JPanel();
@@ -73,7 +76,7 @@ public class AvailableCarView extends javax.swing.JFrame {
 
         savebtn.setBackground(new java.awt.Color(255, 153, 0));
         savebtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        savebtn.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsave.png")); // NOI18N
+        savebtn.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconadd.png")); // NOI18N
         savebtn.setText("Add");
         savebtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         savebtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -82,7 +85,7 @@ public class AvailableCarView extends javax.swing.JFrame {
                 savebtnActionPerformed(evt);
             }
         });
-        jPanel1.add(savebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 460, 160, 50));
+        jPanel1.add(savebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 350, 160, 50));
 
         btnback.setBackground(new java.awt.Color(255, 153, 0));
         btnback.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -95,14 +98,14 @@ public class AvailableCarView extends javax.swing.JFrame {
                 btnbackActionPerformed(evt);
             }
         });
-        jPanel1.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(1160, 460, 160, 50));
+        jPanel1.add(btnback, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 440, 160, 50));
 
         jScrollPane1.setPreferredSize(new java.awt.Dimension(600, 600));
 
-        carTable.setBackground(new java.awt.Color(204, 255, 204));
-        carTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 204)));
-        carTable.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        carTable.setModel(new javax.swing.table.DefaultTableModel(
+        cusTable.setBackground(new java.awt.Color(204, 255, 204));
+        cusTable.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 255, 204)));
+        cusTable.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cusTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null, null, null},
@@ -1109,21 +1112,21 @@ public class AvailableCarView extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9"
             }
         ));
-        carTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        carTable.setGridColor(new java.awt.Color(0, 102, 102));
-        carTable.setPreferredSize(new java.awt.Dimension(9000, 9000));
-        carTable.setRowHeight(30);
-        carTable.setSelectionBackground(new java.awt.Color(204, 204, 204));
-        carTable.setShowGrid(false);
-        carTable.setShowVerticalLines(true);
-        carTable.addMouseListener(new java.awt.event.MouseAdapter() {
+        cusTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        cusTable.setGridColor(new java.awt.Color(0, 102, 102));
+        cusTable.setPreferredSize(new java.awt.Dimension(9000, 9000));
+        cusTable.setRowHeight(30);
+        cusTable.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        cusTable.setShowGrid(false);
+        cusTable.setShowVerticalLines(true);
+        cusTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                carTableMouseClicked(evt);
+                cusTableMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(carTable);
+        jScrollPane1.setViewportView(cusTable);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 1240, 370));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 1090, 490));
 
         jLabel2.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\log9.jpg")); // NOI18N
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1350, 580));
@@ -1188,17 +1191,17 @@ public class AvailableCarView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
-        searchnewcar(); 
+        searchnewcustomer(); 
     }//GEN-LAST:event_savebtnActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
         dispose();
-        new HomeView().setVisible(true);
+        new RentView().setVisible(true);
     }//GEN-LAST:event_btnbackActionPerformed
 
-    private void carTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_carTableMouseClicked
+    private void cusTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cusTableMouseClicked
  
-    }//GEN-LAST:event_carTableMouseClicked
+    }//GEN-LAST:event_cusTableMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1217,14 +1220,18 @@ public class AvailableCarView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AvailableCarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AvailableCarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AvailableCarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AvailableCarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableCustomerView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1233,14 +1240,14 @@ public class AvailableCarView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AvailableCarView().setVisible(true);
+                new AvailableCustomerView().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnback;
-    private javax.swing.JTable carTable;
+    private javax.swing.JTable cusTable;
     private javax.swing.JPanel headerPanel1;
     private javax.swing.JLabel headerlabel2;
     private javax.swing.JLabel jLabel2;
@@ -1259,12 +1266,12 @@ public class AvailableCarView extends javax.swing.JFrame {
 
     
 
-    private void loadAllcars() throws Exception {
-         carTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
-          carTable.getTableHeader().setBackground(Color.ORANGE);
+    public void loadAllcustomers() throws Exception {
+         cusTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
+          cusTable.getTableHeader().setBackground(Color.ORANGE);
           
        try {
-            String[] Columns={"Id","Category","Brand","Model","Transmission","Fual Type","Vehicle No","Year","Per Day Price"};
+           String[] Columns={"Id","Title","Name","NIC","Gender","Address","Contact"};
             DefaultTableModel dtm=new DefaultTableModel(Columns,0){
                 
                 public boolean isCellEditable(int row,int column){
@@ -1273,44 +1280,46 @@ public class AvailableCarView extends javax.swing.JFrame {
                 
             };
             
-            carTable.setModel(dtm);
+            cusTable.setModel(dtm);
             
-            ArrayList<CarDto> cars=carController.getAllCar();
-            ArrayList<RentDetailsDto> carrents=rentDetailsController.getAllRentDetails();
+            ArrayList<CustomerDto> custs=customerController.getAllCustomer();
+           
             
             
-            for(CarDto car :cars){
-              boolean result4= comparevalue(car.getId());
-             if(result4==false){
-                Object[] rowData={car.getId(),car.getCategory(),car.getBrand(),car.getModel(),car.getTransmission(),
-                car.getFualType(),car.getVehicleNo(),car.getYear(),car.getPerDayPrice()};
+            for(CustomerDto cus :custs){
+             boolean result3= comparevalue(cus.getNic());
+             if(result3==false){
+                
+                Object[] rowData={cus.getId(),cus.getTitle(),cus.getName(),cus.getNic(),cus.getGender(),cus.getAddress(),cus.getContact()
+                };
                 dtm.addRow(rowData);
-            } } 
-       }catch (Exception ex) {
+            } 
+            }  }catch (Exception ex) {
             Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
                        
     }
     
     }
 
-    private void searchnewcar() {
+    private void searchnewcustomer() {
        
-          String carId=carTable.getValueAt(carTable.getSelectedRow(), 0).toString();
-          RentView.instance.txtcarid.setText(carId);
-           String perday=carTable.getValueAt(carTable.getSelectedRow(), 8).toString();
-            RentView.instance.txtperday.setText(perday);
+          String cusId=cusTable.getValueAt(cusTable.getSelectedRow(), 0).toString();
+          String nic=cusTable.getValueAt(cusTable.getSelectedRow(), 3).toString();
+          RentView.instance.txtid.setText(cusId);
+          RentView.instance.txtnic.setText(nic);
+           
         dispose();
         
         
     }
 
-public boolean comparevalue(String carid) throws Exception{
+public boolean comparevalue(String cusnic) throws Exception{
     
      ArrayList<RentDetailsDto> carrents=rentDetailsController.getAllRentDetails();
 for(RentDetailsDto carrent :carrents){
    // boolean m=carid==carrent.getCustID();
    // System.out.println(m);
-    if(carid.equals(carrent.getCarID()))
+    if(cusnic.equals(carrent.getCustnic()))
         return true;
 }
     return false;

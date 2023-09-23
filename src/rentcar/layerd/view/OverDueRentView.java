@@ -9,6 +9,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComponent;
@@ -16,6 +17,8 @@ import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import rentcar.layerd.controller.RentController;
+import rentcar.layerd.controller.RentDetailsController;
+import rentcar.layerd.dto.RentDetailsDto;
 import rentcar.layerd.dto.RentDto;
 
 /**
@@ -24,9 +27,11 @@ import rentcar.layerd.dto.RentDto;
  */
 public class OverDueRentView extends javax.swing.JFrame {
  private RentController rentController;
+ private RentDetailsController rentDetailsController;
     SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd");
     public OverDueRentView() {
         rentController=new RentController();
+        rentDetailsController=new RentDetailsController();
         initComponents();
         loadAllrents();
         
@@ -1171,7 +1176,7 @@ public class OverDueRentView extends javax.swing.JFrame {
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
         dispose();
-        new HomeView().setVisible(true);
+        new ManageRentView().setVisible(true);
 
     }//GEN-LAST:event_btnbackActionPerformed
 
@@ -1244,12 +1249,11 @@ public class OverDueRentView extends javax.swing.JFrame {
                 
 
     private void loadAllrents() {
-        rentTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+         rentTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
           rentTable.getTableHeader().setBackground(Color.ORANGE);
           
-          
        try {
-            String[] Columns={"Rent Id","Customer ID","From","To","Car ID","Per Day Price","Advance Payment","Refund Deposit","Total","Balance"};
+            String[] Columns={"Rent Id","Customer ID","Customer NIC","Car ID","From","T0"};
             DefaultTableModel dtm=new DefaultTableModel(Columns,0){
                 
                 public boolean isCellEditable(int row,int column){
@@ -1260,16 +1264,18 @@ public class OverDueRentView extends javax.swing.JFrame {
             
             rentTable.setModel(dtm);
             
-            ArrayList<RentDto> ren=rentController.getAllRent();
+           
+            ArrayList<RentDetailsDto> carrents=rentDetailsController.getAllRentDetails();
             
-            for(RentDto re :ren){
-                Object[] rowData={re.getId(),re.getCustID(),re.getFromDate(),re.getToDate(),re.getCarID(),re.getPerdayrent(),
-                    re.getAdvance(),re.getRefundDeposit(),re.getTotal(),re.getBalance()};
+            Date d1=new Date();
+            for(RentDetailsDto car :carrents){
+             if(d1.compareTo(car.getToDate()) > 0) {
+                Object[] rowData={car.getId(),car.getCustID(),car.getCustnic(),car.getCarID(),car.getFromDate(),car.getToDate()};
                 dtm.addRow(rowData);
-            }  } catch (Exception ex) {
-            Logger.getLogger(RentView.class.getName()).log(Level.SEVERE, null, ex);
-        }    
+            } }
+       }catch (Exception ex) {
+            Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
-
    
 }

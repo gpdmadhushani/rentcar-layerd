@@ -1171,7 +1171,7 @@ public class AllRentView extends javax.swing.JFrame {
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
         dispose();
-        new HomeView().setVisible(true);
+        new ManageRentView().setVisible(true);
 
     }//GEN-LAST:event_btnbackActionPerformed
 

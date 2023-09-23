@@ -28,20 +28,20 @@ import rentcar.layerd.view.HomeView;
  *
  * @author TOSHIBA
  */
-public class AvailableCarView extends javax.swing.JFrame {
+public class AvailableRentView extends javax.swing.JFrame {
 
      private CarController carController;
      private CategoryController categoryController; 
      private RentDetailsController rentDetailsController;
-    public AvailableCarView() {
+    public AvailableRentView() {
        carController=new CarController();
        categoryController=new CategoryController();
        rentDetailsController=new RentDetailsController();
         initComponents();
          try {
-             loadAllcars();
+             loadAllrents();
          } catch (Exception ex) {
-             Logger.getLogger(AvailableCarView.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(AvailableRentView.class.getName()).log(Level.SEVERE, null, ex);
          }
          
         
@@ -73,7 +73,7 @@ public class AvailableCarView extends javax.swing.JFrame {
 
         savebtn.setBackground(new java.awt.Color(255, 153, 0));
         savebtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        savebtn.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconsave.png")); // NOI18N
+        savebtn.setIcon(new javax.swing.ImageIcon("D:\\Projects\\LayerdArchitecture\\rentcar-layerd\\src\\images\\iconadd.png")); // NOI18N
         savebtn.setText("Add");
         savebtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 153, 0)));
         savebtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -82,7 +82,7 @@ public class AvailableCarView extends javax.swing.JFrame {
                 savebtnActionPerformed(evt);
             }
         });
-        jPanel1.add(savebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 460, 160, 50));
+        jPanel1.add(savebtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 460, 170, 50));
 
         btnback.setBackground(new java.awt.Color(255, 153, 0));
         btnback.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -1188,12 +1188,12 @@ public class AvailableCarView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
-        searchnewcar(); 
+        searchnewrent(); 
     }//GEN-LAST:event_savebtnActionPerformed
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
         dispose();
-        new HomeView().setVisible(true);
+        new CarReturnView().setVisible(true);
     }//GEN-LAST:event_btnbackActionPerformed
 
     private void carTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_carTableMouseClicked
@@ -1217,14 +1217,18 @@ public class AvailableCarView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AvailableCarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableRentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AvailableCarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableRentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AvailableCarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableRentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AvailableCarView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AvailableRentView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -1233,7 +1237,7 @@ public class AvailableCarView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AvailableCarView().setVisible(true);
+                new AvailableRentView().setVisible(true);
             }
         });
     }
@@ -1259,12 +1263,12 @@ public class AvailableCarView extends javax.swing.JFrame {
 
     
 
-    private void loadAllcars() throws Exception {
+    private void loadAllrents() throws Exception {
          carTable.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 18));
           carTable.getTableHeader().setBackground(Color.ORANGE);
           
        try {
-            String[] Columns={"Id","Category","Brand","Model","Transmission","Fual Type","Vehicle No","Year","Per Day Price"};
+            String[] Columns={"Rent Id","Customer ID","Customer NIC","Car ID","From","T0"};
             DefaultTableModel dtm=new DefaultTableModel(Columns,0){
                 
                 public boolean isCellEditable(int row,int column){
@@ -1275,17 +1279,15 @@ public class AvailableCarView extends javax.swing.JFrame {
             
             carTable.setModel(dtm);
             
-            ArrayList<CarDto> cars=carController.getAllCar();
+           
             ArrayList<RentDetailsDto> carrents=rentDetailsController.getAllRentDetails();
             
             
-            for(CarDto car :cars){
-              boolean result4= comparevalue(car.getId());
-             if(result4==false){
-                Object[] rowData={car.getId(),car.getCategory(),car.getBrand(),car.getModel(),car.getTransmission(),
-                car.getFualType(),car.getVehicleNo(),car.getYear(),car.getPerDayPrice()};
+            for(RentDetailsDto car :carrents){
+             
+                Object[] rowData={car.getId(),car.getCustID(),car.getCustnic(),car.getCarID(),car.getFromDate(),car.getToDate()};
                 dtm.addRow(rowData);
-            } } 
+            } 
        }catch (Exception ex) {
             Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
                        
@@ -1293,29 +1295,21 @@ public class AvailableCarView extends javax.swing.JFrame {
     
     }
 
-    private void searchnewcar() {
+    private void searchnewrent() {
        
-          String carId=carTable.getValueAt(carTable.getSelectedRow(), 0).toString();
-          RentView.instance.txtcarid.setText(carId);
-           String perday=carTable.getValueAt(carTable.getSelectedRow(), 8).toString();
-            RentView.instance.txtperday.setText(perday);
+          String rentId=carTable.getValueAt(carTable.getSelectedRow(), 0).toString();
+          CarReturnView.instance1.txtrentid.setText(rentId);
+           String custId=carTable.getValueAt(carTable.getSelectedRow(), 1).toString();
+             CarReturnView.instance1.txtcustid.setText(custId);
+             
+             String carId=carTable.getValueAt(carTable.getSelectedRow(), 3).toString();
+             CarReturnView.instance1.txtcarid.setText(carId);
         dispose();
         
         
     }
 
-public boolean comparevalue(String carid) throws Exception{
-    
-     ArrayList<RentDetailsDto> carrents=rentDetailsController.getAllRentDetails();
-for(RentDetailsDto carrent :carrents){
-   // boolean m=carid==carrent.getCustID();
-   // System.out.println(m);
-    if(carid.equals(carrent.getCarID()))
-        return true;
-}
-    return false;
-}
-    
+
 }
 
     
