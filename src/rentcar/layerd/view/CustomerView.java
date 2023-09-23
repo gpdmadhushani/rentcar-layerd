@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import rentcar.layerd.controller.CustomerController;
@@ -1364,7 +1365,7 @@ updatecustomer();
 
     private void addCustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustButtonActionPerformed
        try {
-           addcustomer();
+           formValidate();
        } catch (Exception ex) {
            Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
        }
@@ -1624,4 +1625,71 @@ searchcustomer();
     
     
     }
+    
+    private void formValidate() throws Exception {
+       
+      String id= custIdtext.getText();
+      String name= custNametext.getText();
+      String nic= custnictext.getText();
+       String addr= custAddresstext.getText();
+        String contact=custcontacttext.getText(); 
+        
+        
+         if(id.equals("")){
+                   
+                  custIdtext.setBorder(BorderFactory. createLineBorder(Color. red));
+                  
+                   }else if(name.equals("")){
+                    
+                     
+                 custNametext.setBorder(BorderFactory. createLineBorder(Color. red));
+                }
+        else if(nic.equals("")){
+                   
+            
+            custnictext.setBorder(BorderFactory. createLineBorder(Color. red));      
+               }
+                else if(addr.equals("")){
+                    
+                 
+                custAddresstext .setBorder(BorderFactory. createLineBorder(Color. red));   
+               
+               
+               }else if(contact.equals("")){
+                    
+                   
+                   custcontacttext.setBorder(BorderFactory. createLineBorder(Color. red));
+                   
+                
+                    
+                    
+                   
+                
+                }else{
+                   
+                    addcustomer();
+                }
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import rentcar.layerd.controller.CategoryController;
@@ -1242,7 +1243,7 @@ public class CategoryView extends javax.swing.JFrame {
 
     private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
         try {
-            addcategory();
+           formValidate();
         } catch (Exception ex) {
             Logger.getLogger(CategoryView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1411,5 +1412,41 @@ searchcategory();
         }
     
     }
+    
+    
+    
+    private void formValidate() throws Exception {
+       String id=cateidtext.getText();  
+      String name= nametxt.getText();
+       
+                if(id.equals("")){
+                   
+                  cateidtext.setBorder(BorderFactory. createLineBorder(Color. red));
+                  
+                   }else if(name.equals("")){
+                    
+                     nametxt.setBorder(BorderFactory. createLineBorder(Color. red));
+               
+               
+              
+                  }else{
+                   
+                    addcategory();
+                }
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
     }
 

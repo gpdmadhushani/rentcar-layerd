@@ -10,8 +10,11 @@ import java.awt.Component;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -598,7 +601,7 @@ new AvailableCarView().setVisible(true);
 
     private void addCustButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addCustButtonActionPerformed
         try {
-            addrent();
+            formValidate();
         } catch (Exception ex) {
             Logger.getLogger(RentView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -755,16 +758,132 @@ new AvailableCustomerView().setVisible(true);
         custnictext.getText());
    
     String result=rentDetailsController.addRentDetails(rentDetailsDto);
-    JOptionPane.showMessageDialog(this, result); 
+    
     }
 
     
 
 
-
-
-   
+    private void formValidate() throws Exception {
+       
+       String id=rentIdtext.getText();
+      
+      Date from= fromdate.getDate();
+      Date to= todate.getDate();
+      
+      
+       String adv=  advancetxt.getText();
+        String refu= refundtxt.getText();
+      String total= totaltxt.getText();
+       String bal= balancetxt.getText();
+        
+      int days=(int) getDifferenceDays(from,to);
+        
+       
+   if(id.equals("")){
+                   
+                  rentIdtext.setBorder(BorderFactory. createLineBorder(Color. red));
+                  
+                   }else if(from.equals("")){
+                    
+                     fromdate.setBorder(BorderFactory. createLineBorder(Color. red));
+                }
+        else if(to.equals("")){
+                   
+            
+            todate.setBorder(BorderFactory. createLineBorder(Color. red));      
+               }
+        
+       
+        
+        else if(adv.equals("")){
+                   
+            
+            advancetxt.setBorder(BorderFactory. createLineBorder(Color. red));      
+               }
+        
+        
+        
+        else if(refu.equals("")){
+                   
+            
+            refundtxt.setBorder(BorderFactory. createLineBorder(Color. red));      
+               }
+        
+        
+        else if(total.equals("")){
+                   
+            
+            totaltxt.setBorder(BorderFactory. createLineBorder(Color. red));      
+               }
+        
+        
+        else if(bal.equals("")){
+                   
+            
+            balancetxt.setBorder(BorderFactory. createLineBorder(Color. red));      
+               
+    
+                
+               
+                }else if((isDouble(adv))==false){
+                    
+                 
+                advancetxt .setBorder(BorderFactory. createLineBorder(Color. red));   
+               
+                        
+                
+                 }else if((isDouble(refu))==false){
+                    
+                 
+                refundtxt .setBorder(BorderFactory. createLineBorder(Color. red));   
+               
+                
+                  }else if((isDouble(total))==false){
+                    
+                 
+                totaltxt .setBorder(BorderFactory. createLineBorder(Color. red));   
+               
+                
+                }else if((isDouble(bal))==false){
+                    
+                 
+                balancetxt .setBorder(BorderFactory. createLineBorder(Color. red));   
+               
+                
+                
+                 }else if(days>30){
+                    
+                 
+               fromdate.setBorder(BorderFactory. createLineBorder(Color. red));   
+                todate.setBorder(BorderFactory. createLineBorder(Color. red));   
+                 JOptionPane.showMessageDialog(this, "Date range exceeded 30 days"); 
+                
+                }else{
+                   
+                     addrent();
+                }
+        
     }
+         boolean isDouble(String input) {
+        try {
+            Double.parseDouble(input);
+            
+            return true;
+        } catch (NumberFormatException e) {
+            
+            return false;
+        }
+    
+
+
+         }
+    
+public static long getDifferenceDays(Date d1, Date d2) {
+    long diff = d2.getTime() - d1.getTime();
+    return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+}
+}
 
     
     

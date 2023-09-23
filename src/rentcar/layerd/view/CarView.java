@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import rentcar.layerd.controller.CarController;
@@ -1362,7 +1363,7 @@ public class CarView extends javax.swing.JFrame {
 
     private void savebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savebtnActionPerformed
          try {
-             savecar();
+             formValidate();
          } catch (Exception ex) {
              Logger.getLogger(CarView.class.getName()).log(Level.SEVERE, null, ex);
          }
@@ -1608,6 +1609,68 @@ searchcar();
     }
 
     }
+    
+    
+    
+    
+    private void formValidate() throws Exception {
+       
+       String id= idtext.getText();
+        
+         
+        String vehicleno= vehinotext.getText();
+        String price= pricetext.getText();
+        
+        
+        if(id.equals("")){
+                   
+                  idtext.setBorder(BorderFactory. createLineBorder(Color. red));
+                  
+                   }else if(vehicleno.equals("")){
+                    
+                     vehinotext.setBorder(BorderFactory. createLineBorder(Color. red));
+                }
+        else if(price.equals("")){
+                   
+            
+            pricetext.setBorder(BorderFactory. createLineBorder(Color. red));      
+               }
+                else if((isDouble(price))==false){
+                    
+                 
+                pricetext .setBorder(BorderFactory. createLineBorder(Color. red));   
+               JOptionPane.showMessageDialog(this, "Invalid Price");
+               
+               }else{
+                   
+                     savecar();
+                }
+        
+    }
+         boolean isDouble(String input) {
+        try {
+            Double.parseDouble(input);
+            
+            return true;
+        } catch (NumberFormatException e) {
+            
+            return false;
+        }
+    
+    
+    
+    
+        
+        
+        
+        
+        
+    }
+     
+    
+    
+    
+    
 }
 
     

@@ -4,10 +4,12 @@
  */
 package rentcar.layerd.view;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.security.MessageDigest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -330,7 +332,7 @@ new LoginView().setVisible(true);
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     try {
-        adduser();
+        formValidate();
     } catch (Exception ex) {
         Logger.getLogger(RegistrationView.class.getName()).log(Level.SEVERE, null, ex);
     }
@@ -442,4 +444,99 @@ usernametxt.setText("");
         }   
         
     }
+    
+    
+    
+    private void formValidate() throws Exception {
+       
+       String userid=useridtext.getText();
+              String usertitle= titleComboBox.getSelectedItem().toString();
+              String firstname= firstnametxt.getText(); 
+              String lastname= lastnametxt.getText();
+              String email= emailtxt.getText();
+              String mobile= mobiletxt.getText(); 
+              String gender= genderComboBox.getSelectedItem().toString();
+              String username= usernametxt.getText();
+              String password=String.valueOf(PasswordField.getPassword());
+              String conpassword= String.valueOf(conPasswordField.getPassword()); 
+                
+                
+                
+                if(userid.equals("")){
+                   
+                  useridtext.setBorder(BorderFactory. createLineBorder(Color. red));
+                  
+                   }else if(firstname.equals("")){
+                    
+                     
+                   
+                   firstnametxt.setBorder(BorderFactory. createLineBorder(Color. red));
+                }
+        else if(lastname.equals("")){
+                   
+            
+            lastnametxt.setBorder(BorderFactory. createLineBorder(Color. red));      
+               }
+                else if(email.equals("")){
+                    
+                 
+                emailtxt .setBorder(BorderFactory. createLineBorder(Color. red));   
+               
+               
+               }else if(mobile.equals("")){
+                    
+                   
+                   mobiletxt.setBorder(BorderFactory. createLineBorder(Color. red));
+                   
+                }else if(username.equals("")){
+                   
+                   
+                  usernametxt.setBorder(BorderFactory. createLineBorder(Color. red));
+                    
+                }else if(password.equals("")){
+                 
+                   
+                  PasswordField.setBorder(BorderFactory. createLineBorder(Color. red));
+                     
+                }else if(conpassword.equals("")){
+                   
+                    
+                    conPasswordField.setBorder(BorderFactory. createLineBorder(Color. red));
+                   
+                   
+                }else if(password.equals(conpassword)==false){
+                  
+                    JOptionPane.showMessageDialog(this, "The password and confirmation password do not match");  
+                   
+                    PasswordField.setBorder(BorderFactory. createLineBorder(Color. red));
+
+                    
+                   conPasswordField.setBorder(BorderFactory. createLineBorder(Color. red)); 
+                   
+                
+                }else{
+                   
+                    adduser();
+                }
+        
+        
+        
+        
+        
+        
+        
+        
+    }
+     
+    
+    
 }
+
+    
+    
+    
+    
+    
+    
+    
+
